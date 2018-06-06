@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang=ru>
+<head>
+  <meta charset="utf-8">
+  <title>Глаголы движения</title>
+
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="https://www.youtube.com/player_api"></script>
+</head>
+<body>
+<h1>Глаголы движения</h1>
+<h3>Анастасия Антонова</h3>
+
+<p class="cue">Complete this sentence by filling in the <input type="text" name="answer" value="" placeholder="blank" /></p>
+
+<div id="ytplayer"></div>
+
+<script>
+  /** GLOBAL YOUTUBE CODE **/
+
+  // Replace the 'ytplayer' div element with an <iframe> and
+  // YouTube player after the API code downloads.
+  
+  var player;
+  function onYouTubePlayerAPIReady() {
+    console.log("global", YT.Player)
+    console.log(window.dvi)
+    window.dvi.answers.initializeYouTubePlayer()
+
+    
+    // player = new YT.Player('ytplayer', {
+    //   height: '360',
+    //   width: '640',
+    //   videoId: 'M7lc1UVf-VE'
+    // });
+    
+  }
+
+  /** END OF GLOBAL CODE **/
+</script>
+<script src="js/script.js"></script>
+
+</body>
+</html>

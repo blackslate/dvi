@@ -1,0 +1,19 @@
+p.cue {
+  font-weight: bold;
+}
+
+input[name=answer] {
+  color: red;
+  font-style: italic;
+}
+
+
+#ytplayer {
+  height: 360px;
+  width: 640px;
+}
+
+
+div#ytplayer {
+  background-color: #000;
+}
