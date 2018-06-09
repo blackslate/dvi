@@ -109,6 +109,7 @@
       this.getNext = model.getNext.bind(model)
       this.showQuestion = viewer.show.bind(viewer)
 
+      this.fadeDelay = 10 // fades in and out over 100 * 10 ms
       this.regex = /([^(]*)\((.+?)\)\s*&(.+?)&([^(]*)(\((.+?)\)\s*&(.+?)&)?(.*)/
 
       /*
@@ -154,9 +155,11 @@
       this.videoOptions = { 
           videoId:          question.id
         , startSeconds:     question.start
-        , endSeconds:       question.end || question.start + 10
+        // , endSeconds:       question.end || question.start + 10
         // , suggestedQuality: "small"    
       }
+
+      this.pauseDelay = (question.end-question.start) * 1000 || 3000
 
       // small: Player height is 240px
       //        and player dimensions are at least 320px by 240px
@@ -241,14 +244,51 @@
     }
 
 
-    setPlayer(ytPlayer) {
+    setPlayer(YTPlayer) {
       console.log("YouTube Player loaded")
-      this.ytPlayer = ytPlayer
+      this.YTPlayer = YTPlayer
     }
 
 
     playReward() {
-      this.ytPlayer.loadVideoById(this.videoOptions)
+      this.YTPlayer.loadVideoById(this.videoOptions)
+
+      let pause = this.pausePlayback.bind(this)
+      setTimeout(pause, this.pauseDelay)
+    }
+
+
+    pausePlayback()  {
+      this.fadeToZero()
+    }
+
+
+    fadeToZero() {
+      let fade = this.fade.bind(this)
+
+      this.increment = -1
+      this.fading = setInterval(fade, this.fadeDelay)
+    }
+
+    
+    fade() {
+      let volume = this.YTPlayer.getVolume() + this.increment
+
+      this.YTPlayer.setVolume(volume)
+
+      if (volume > 99 || volume < 1) {
+        clearInterval(this.fading)
+        this.fading = 0
+
+        if (volume) {
+
+        } else {
+          this.YTPlayer.pauseVideo()
+          this.YTPlayer.setVolume(100)
+
+          // this.YTPlayer.unMute()
+        }
+      }
     }
   }
 
@@ -343,6 +383,7 @@
       , "verbs": ["идти"]
       , "pronouns": ["он"]
       , "start": 51
+      , "end": 62
       }
     , { "phrase": "Я снова куда-то (ехать) &еду&."
       , "id": "LMYyje5Qu4c" 
