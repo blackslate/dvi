@@ -1,10 +1,20 @@
 p.cue {
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
-input[name=answer] {
-  color: red;
-  font-style: italic;
+input[type=text] {
+  color: #66C;
+  /*font-style: italic;*/
+  font-weight: bold;
+  width: 5em;
+}
+
+
+input[type=text]:disabled {
+  background-color: #efe;
+  text-align: center;
+  color: black;
+  border: none;
 }
 
 
@@ -16,4 +26,28 @@ input[name=answer] {
 
 div#ytplayer {
   background-color: #999;
+}
+
+::-webkit-input-placeholder {
+ text-align: center;
+ font-style: italic;
+ color: #ccc;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+ text-align: center;
+ font-style: italic;
+ color: #ccc;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+ text-align: center;
+ font-style: italic;
+ color: #ccc;
+}
+
+:-ms-input-placeholder {  
+ text-align: center;
+ font-style: italic;
+ color: #ccc; 
 }

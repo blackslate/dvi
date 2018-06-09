@@ -2,65 +2,85 @@
 
 ;(function customCode(window){
 
+  
+  class Model {
 
-  class Answers {
-    constructor (questions) {
-      // console.log("constructor")
-      this.input = document.querySelector("input[name=answer]")
-      this.ready = false
-      this.player = undefined
-      this.questions = questions
-
-      let listener = this.check.bind(this)
-      this.input.addEventListener("input", listener, true)
+    constructor (questionArray) {
+      this.array = questionArray
+      this.pool = []
     }
 
 
-    check(event) {
-      let value = event.target.value
-      if (!this.ready || value.toLowerCase() !== "blank") {
-        return
+    setQuestionPool (options = {
+      pronoun: undefined
+    , verb: undefined
+    , dontShuffle: false
+    }) {
+
+      let forPronoun = (phraseData) => {
+        if (options.pronoun) {
+          console.log(phraseData.phrase)
+          return phraseData.pronouns.indexOf(options.pronoun) > -1
+        } else {
+          return true
+        }
       }
 
-      let player = this._getPlayer()
+      let forVerb = (phraseData) => {
+        if (options.verb) {
+          // console.log(phraseData.phrase)
 
-      if (this.player) {
-        let options = {
-          videoId:          "M7lc1UVf-VE"
-        , startSeconds:     2
-        , endSeconds:       4
-        , suggestedQuality: "small"
+          return phraseData.verbs.indexOf(options.verb) > -1
+        } else {
+          return true
+        }
+      }
+
+      let forMultiple = (phraseData) => {
+        if (options.multiple !== undefined) {
+          let include = options.multiple
+                     ? phraseData.verbs.length > 1
+                     : phraseData.verbs.length === 1
+          return include
+        } else {
+          return true
+        }
+      }
+
+      let pool = this.array.filter(forPronoun)
+                           .filter(forVerb)
+                           .filter(forMultiple)
+
+      if (pool.length) {
+        if (!options.dontShuffle) {
+          this._shuffle(pool)
         }
 
-        // small: Player height is 240px
-        //        and player dimensions are at least 320px by 240px
-        //        for 4:3 aspect ratio.
-        // medium: Player height is 360px
-        //         and player dimensions are 640px by 360px
-        //         (for 16:9 aspect ratio)
-        //         or 480px by 360px (for 4:3 aspect ratio).
-        // large: Player height is 480px, and player dimensions are 853px by 480px (for 16:9 aspect ratio) or 640px by 480px (for 4:3 aspect ratio).
-        // hd720: Player height is 720px, and player dimensions are 1280px by 720px (for 16:9 aspect ratio) or 960px by 720px (for 4:3 aspect ratio).
-        // hd1080: Player height is 1080px, and player dimensions are 1920px by 1080px (for 16:9 aspect ratio) or 1440px by 1080px (for 4:3 aspect ratio).
-        // highres: Player height is greater than 1080px, which means that the player's aspect ratio is greater than 1920px by 1080px.
-        // default
+        this.pool = pool
+      }
 
-        // console.log(this.player.loadVideoById)
-
-        this.player.loadVideoById(options)
-      }   
+      // console.log(this.pool)
     }
 
-    _getPlayer() {
-      // if (!this.player) {
-      //   this.player = new YT.Player('ytplayer', {
-      //     height: '360',
-      //     width: '640',
-      //     // videoId: 'M7lc1UVf-VE'
-      //   })
-      // }
 
-      return this.player
+    getNext() {
+      let question = this.pool.shift()
+      if (!this.pool.length) {
+        console.log("LAST QUESTION") // TODO
+      }
+
+      return question
+    }
+
+
+    _shuffle(array) {
+      var j, x, i;
+      for (i = array.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = array[i];
+        array[i] = array[j];
+        array[j] = x;
+      }
     }
   }
 
@@ -73,14 +93,24 @@
 
 
   class Viewer {
-    constructor (questions) {
-      this.cueElement = document.querySelector("p.cue")
-      this.input = this.cueElement.querySelector("input")
+    constructor (cueElement) {
+      this.cueElement = cueElement
+    }
 
-      this.getNext = questions.getNext.bind(questions)
+    show(questionHTML) {
+      this.cueElement.innerHTML = questionHTML
+    }
+  }
+
+
+  class Controller {
+    constructor (model, viewer, cueElement) {
+      this.setPool = model.setQuestionPool.bind(model)
+      this.getNext = model.getNext.bind(model)
+      this.showQuestion = viewer.show.bind(viewer)
+
       this.regex = /([^(]*)\((.+?)\)\s*&(.+?)&([^(]*)(\((.+?)\)\s*&(.+?)&)?(.*)/
 
-      
       /*
       ([^(]*)                // everything up to first (   
       \((.+?)\)\s*&(.+?)&    // first infinitive + answer
@@ -88,9 +118,28 @@
       (\((.+?)\)\s*&(.+?)&)? // optional second infinitive + answer
       (.*)                   // everything else
       */
+
+      // Placeholders
+      this.question = {}
+      this.answers = []
+
+      // TODO: Read options from contextual menus
+      let options = { 
+      //   pronoun: "я"
+      // , verb: "идти"
+      // , multiple: true
+      }
+
+      this.setPool(options)
+
+      let listener = this.checkInput.bind(this)
+      cueElement.addEventListener("input", listener, true)
+
+      this.nextQuestion()
     }
 
-    showNextQuestion() {
+
+    nextQuestion() {
       let question = this.getNext()
       /* 
         { "phrase": "Мы (бежать) &бежим& с тобой по лужам."
@@ -100,18 +149,34 @@
         , "start": 43
         }
       */
-      let phrase = question.phrase
-      let videoOptions = { 
+     
+      this.prepareQuestion(question.phrase)
+      this.videoOptions = { 
           videoId:          question.id
         , startSeconds:     question.start
-        , endSeconds:       question.end || question.start + 3
+        , endSeconds:       question.end || question.start + 10
         // , suggestedQuality: "small"    
       }
 
-      console.log("phrase", '"' + phrase  + '"')
-      console.log("options", videoOptions)
-      // console.log(question)
+      // small: Player height is 240px
+      //        and player dimensions are at least 320px by 240px
+      //        for 4:3 aspect ratio.
+      // medium: Player height is 360px
+      //         and player dimensions are 640px by 360px
+      //         (for 16:9 aspect ratio)
+      //         or 480px by 360px (for 4:3 aspect ratio).
+      // large: Player height is 480px, and player dimensions are 853px by 480px (for 16:9 aspect ratio) or 640px by 480px (for 4:3 aspect ratio).
+      // hd720: Player height is 720px, and player dimensions are 1280px by 720px (for 16:9 aspect ratio) or 960px by 720px (for 4:3 aspect ratio).
+      // hd1080: Player height is 1080px, and player dimensions are 1920px by 1080px (for 16:9 aspect ratio) or 1440px by 1080px (for 4:3 aspect ratio).
+      // highres: Player height is greater than 1080px, which means that the player's aspect ratio is greater than 1920px by 1080px.
+      // default
 
+      // console.log("options", videoOptions)
+      // console.log(question)
+    }
+
+
+    prepareQuestion(phrase) {
       let match = this.regex.exec(phrase)
 
       // console.log(match)
@@ -132,123 +197,83 @@
       // . length: 9
       // ]
 
-      let answers = [match[2]]
+      this.answers = [match[3]]
+      // a second answer may be added later
+
       let html = "<p class='cue'>"
                + match[1]
                + "<input type='text' placeholder='"
-                 + match[2] + "' name='a' />"
+                 + match[2] + "' name='0' />"
                + match[4]
+
       if (match[5]) {
+        // Add the second answer
         html += "<input type='text' placeholder='"
-                + match[6] + "' name='b' />"
-              + match[7]
+                + match[6] + "' name='1' />"
+              + match[8]
+        this.answers.push(match[7])
       }
+
       html += "</p>"
 
-      this.cueElement.innerHTML = html
-    }
-  }
+      this.todo = this.answers.length
+      this.showQuestion(html)
 
-  
-  class Questions {
-
-    constructor (questionArray) {
-      this.array = questionArray
-      this.pool = []
+      console.log(this.answers)
     }
 
 
-    setQuestionPool (options={ dontShuffle: false }) {
-      var pool
+    checkInput(event) {
+      // console.log("checkInput", event)
+      let target = event.target
+      let index = target.name
+      let value = target.value.toLowerCase()
+      let expected = this.answers[index].toLowerCase()
 
-      var forPronoun = (phraseData) => {
-        if (options.pronoun) {
-          console.log(phraseData.phrase)
-          return phraseData.pronouns.indexOf(options.pronoun) > -1
-        } else {
-          return true
+      if (value === expected) {
+        target.value = this.answers[index]
+        target.disabled = true
+
+        if (!--this.todo) {
+          this.playReward()
         }
       }
-
-      var forVerb = (phraseData) => {
-        if (options.verb) {
-          // console.log(phraseData.phrase)
-
-          return phraseData.verbs.indexOf(options.verb) > -1
-        } else {
-          return true
-        }
-      }
-
-      var pool = this.array.filter(forPronoun)
-      // console.log("****")
-      pool = pool.filter(forVerb)
-
-      if (pool.length) {
-        if (!options.dontShuffle) {
-          this._shuffle(pool)
-        }
-
-        this.pool = pool
-      }
-
-      // console.log(this.pool)
     }
 
 
-    getNext() {
-      return this.pool.shift()
+    setPlayer(ytPlayer) {
+      console.log("YouTube Player loaded")
+      this.ytPlayer = ytPlayer
     }
 
 
-    _shuffle(array) {
-      var j, x, i;
-      for (i = array.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = array[i];
-        array[i] = array[j];
-        array[j] = x;
-      }
-    }
-  }
-
-
-  class Controller {
-    constructor (questions) {
-      this.questions = questions
-
-      let options = { 
-      //   pronoun: "я"
-      // , verb: "идти"
-      }
-      questions.setQuestionPool(options)
+    playReward() {
+      this.ytPlayer.loadVideoById(this.videoOptions)
     }
   }
 
 
   class DVI {
     constructor(questionArray) {
-      this.questions = new Questions(questionArray)
-      this.viewer = new Viewer(this.questions)
-      this.controller = new Controller(this.questions)
+      let cueElement = document.querySelector("p.cue")
 
-      this.nextQuestion()
-    }
-
-
-    nextQuestion() {
-      this.viewer.showNextQuestion()
+      let model = new Model(questionArray)
+      let viewer = new Viewer(cueElement)
+      this.controller = new Controller(
+        model
+      , viewer
+      , cueElement)
     }
 
 
     initializeYouTubePlayer() {
-      this.ready = true
-
-      this.player = new YT.Player('ytplayer', {
+      let player = new YT.Player('ytplayer', {
         height: '360'
       , width: '640'
         // videoId: 'M7lc1UVf-VE'
       })
+
+      this.controller.setPlayer(player)
     }
   }
   
