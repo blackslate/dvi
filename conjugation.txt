@@ -1,0 +1,156 @@
+﻿// Упражнение №4.
+// "Вставьте глагол в правильной форме:"  
+
+[
+       { "phrase": "Мы (плыть) &плывём& на льдине."
+        , "url": "https://www.youtube.com/watch?v=nuOA--rq7vE" 
+        , "verbs": ["плыть"]
+        , "pronouns": ["мы"]
+        , "start": 0
+        }
+      , { "phrase": "Мы (ехать) &едем& в далёкие края."
+        , "url": "https://www.youtube.com/watch?v=rqceEodDe5Q" 
+        , "verbs": ["ехать"]
+        , "pronouns": ["мы"]
+        , "start": 0
+        }
+      , { "phrase": "Все (бежать) &бегут& и я (бежать) &бегу&."
+        , "url": "https://www.youtube.com/watch?v=GY2RZSbtVWk"  
+        , "verbs": ["бежать"]
+        , "pronouns": ["они", "я"]
+        , "start": 0
+        }
+      , { "phrase": "Я (бежать) &бегу&."
+        , "url": "https://youtu.be/Ri3tBycAOg0" 
+        , "verbs": ["бежать"]
+        , "pronouns": ["я"]
+        , "start": 55
+        }
+      , { "phrase": "Я по улице (идти) &иду&, я улыбку всем дарю."
+        , "url": "https://www.youtube.com/watch?v=rjxoWMtgbxo&t=12s" 
+        , "verbs": ["идти"]
+        , "pronouns": ["я"]
+        , "start": 0
+        }
+      , { "phrase": "Когда (идти) &идешь& ты не туда, придешь ли ты обратно?"
+        , "url": "https://youtu.be/wQ9DPGXYTUc"  
+        , "verbs": ["идти"]
+        , "pronouns": ["ты"]
+        , "start": 36
+        }
+      , { "phrase": "Ну что ж ты не (идти) &идешь&, моя любовь?"
+        , "url": "https://youtu.be/ZPzeocv2O7A" 
+        , "verbs": ["идти"]
+        , "pronouns": ["ты"]
+        , "start": 53
+        }
+      , { "phrase": "Носорог (идти) &идёт&. Крокодил (плыть) &плывёт&."
+        , "url": "https://youtu.be/x_piwY-YpGg" 
+        , "verbs": ["идти", "плыть"]
+        , "pronouns": ["он/она/оно"]
+        , "start": 29
+        }
+      , { "phrase": "Куда (идти) &идём& мы с Пятачком?"
+        , "url": "https://youtu.be/WB1TcOmbCrQ" 
+        , "verbs": ["идти"]
+        , "pronouns": ["мы"]
+        , "start": 13
+        }
+      , { "phrase": "Я спросил тебя: зачем (идти) &идете& в горы вы?"
+        , "url": "https://youtu.be/q1qNnNNpuC4" 
+        , "verbs": ["идти"]
+        , "pronouns": ["вы"]
+        , "start": 5
+        }
+      , { "phrase": "Снег (идти) &идёт&. И всё вокруг чего-то ждёт."
+        , "url": "https://youtu.be/vc6mB77esAI"
+        , "verbs": ["идти"]
+        , "pronouns": ["он"]
+        , "start": 51
+        }
+      , { "phrase": "Я снова куда-то (ехать) &еду&."
+        , "url": "https://youtu.be/LMYyje5Qu4c" 
+        , "verbs": ["ехать"]
+        , "pronouns": ["я"]
+        , "start": 8
+        }
+      , { "phrase": "К нам (ехать) &едет& жених из-за границы!" 
+        , "url": "https://youtu.be/SOQyUwcj71Q" 
+        , "verbs": ["ехать"]
+        , "pronouns": ["он/она/оно"]
+        , "start": 6
+        }
+      , { "phrase": "Я кручу педали и с горы как птица (лететь) &лечу&."
+        , "url": "https://youtu.be/6FS14Li3AdQ" 
+        , "verbs": ["лететь"]
+        , "pronouns": ["я"]
+        , "start": 162
+        }
+      , { "phrase": "(лететь) &Летят& самолёты, (плыть) &плывут& корабли."
+        , "url": "https://youtu.be/iLNjB2uUuUs" 
+        , "verbs": ["лететь", "плыть"]
+        , "pronouns": ["они"]
+        , "start": 987
+        }
+      , { "phrase": "Ты (лететь) &летишь& куда, откуда?"
+        , "url": "https://youtu.be/3mYj7aZPWTQ" 
+      //, "url": "https://youtu.be/1ohlKfX6sGs?t=40s"  // ???????
+        , "verbs": ["лететь"]
+        , "pronouns": ["ты"]
+        , "start": 37
+        }
+      , { "phrase": "Журавль по небу (лететь) &летит&."
+        , "url": "https://youtu.be/9-pXfiXGwNQ"  
+        , "verbs": ["лететь"]
+        , "pronouns": ["он/она/оно"]
+        , "start": 35
+        }
+      , { "phrase": "Но зато он плавать может. И по небу (лететь) &летит&!" 
+        , "url": "https://youtu.be/ymqmJSOxvvI" 
+        , "verbs": ["лететь"]
+        , "pronouns": ["он/она/оно"]
+        , "start": 32
+        }
+      , { "phrase": "Мы вдвоём (лететь) &летим& на облаке верхом."
+        , "url": "https://youtu.be/S_059LyVKs0" 
+        , "verbs": ["лететь"]
+        , "pronouns": ["мы"]
+        , "start": 7
+        }
+      , { "phrase": "Вы куда (лететь) &летите&, в Ниццу?"
+        , "url": "https://youtu.be/75JjflWKs98"  
+        , "verbs": ["лететь"]
+        , "pronouns": ["вы"]
+        , "start": 137
+        }
+      , { "phrase": "Вы к ним (лететь) &летите&? Отлично."
+        , "url": "https://youtu.be/WTCBw3wJqkE" 
+        , "verbs": ["лететь"]
+        , "pronouns": ["вы"]
+        , "start": 160
+        }
+      , { "phrase": "По синему морю к зелёной земле (плыть) &плыву& я на белом своём корабле."
+        , "url": "https://youtu.be/LQsBJbMt17I" 
+        , "verbs": ["плыть"]
+        , "pronouns": ["я"]
+        , "start": 5
+        }
+      , { "phrase": "Ты от меня (бежать) &бежишь&."
+        , "url": "https://youtu.be/6sPy0xnk8J4" 
+        , "verbs": ["бежать"]
+        , "pronouns": ["ты"]
+        , "start": 27
+        }
+      , { "phrase": "(бежать) &Бежит& по лесу круглый ёж. (бежать) &Бежит& и поёт, что он на круг похож."
+        , "url": "https://youtu.be/l9NX1xOHitk" 
+        , "verbs": ["бежать"]
+        , "pronouns": ["он/она/оно"]
+        , "start": 33
+        }
+      , { "phrase": "Мы &бежим& с тобой по лужам."
+        , "url": "https://youtu.be/qeXNepejiHE"
+        , "verbs": ["бежать"]
+        , "pronouns": ["мы"]
+        , "start": 43
+        }
+      ]

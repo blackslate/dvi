@@ -1,0 +1,27 @@
+##You open the page and see:
+
+* Title
+* Instructions (IKEA-style) 
+---
+* A sentence with a gap
+* The verb to use in the gap
+* Place for a video. This actually shows ???
+* A progress bar, to show how many questions have been answered (correctly)
+* A tab at the bottom of the screen. Pressing this...
+    - opens a table of conjugations
+* (Optional)
+    - Contextual menu for verbs
+    - Contextual menu for persons
+
+
+##Action 
+* Type into the gap (text input)
+* Open conjugation table and drag word
+ 
+##Reactions
+* As word is typed, if input is impossible, latest letter is removed
+* When input contains correct string, video plays
+
+##Background actions
+* Video is pre-loaded
+* Sentence is chosen at random from a list

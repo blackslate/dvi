@@ -6,6 +6,7 @@
 
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script src="https://www.youtube.com/player_api"></script>
+
 </head>
 <body>
 <h1>Глаголы движения</h1>
@@ -15,6 +16,8 @@
 
 <div id="ytplayer"></div>
 
+
+<script src="js/script.js"></script>
 <script>
   /** GLOBAL YOUTUBE CODE **/
 
@@ -23,9 +26,9 @@
   
   var player;
   function onYouTubePlayerAPIReady() {
-    console.log("global", YT.Player)
-    console.log(window.dvi)
-    window.dvi.answers.initializeYouTubePlayer()
+    // console.log("global", YT.Player)
+    // console.log(window.dvi)
+    window.dvi.initializeYouTubePlayer()
 
     
     // player = new YT.Player('ytplayer', {
@@ -36,9 +39,12 @@
     
   }
 
+  function onPlayerReady() {
+    console.log("Player ready")
+  }
+
   /** END OF GLOBAL CODE **/
 </script>
-<script src="js/script.js"></script>
 
 </body>
 </html>
