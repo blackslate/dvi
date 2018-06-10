@@ -108,13 +108,13 @@
     constructor (model) {
       this.setPool = model.setQuestionPool.bind(model)
       this.getNext = model.getNext.bind(model)
-      this.getLast = model.getLast.bind(model)
+      this.getLast = model.getLast.bind(model) ////////////////
 
       this.cueElement = document.querySelector("p.cue")
       this.last = document.querySelector("button.last")
-      this.next = document.querySelector("button.next")
+      this.next = document.querySelector("button.next") ///////
       this.table = document.querySelector("table")
-      this.drag = document.querySelector("div.drag")
+      this.drag = document.querySelector("div.drag") //////////
       this.mask = document.querySelector("div.mask")
 
       this.fadeDelay = 10 // fades in and out over 100 * 10 ms
@@ -184,6 +184,10 @@
           this.next.disabled = false
           this.mask.classList.add("invisible")
           this.playReward()
+        } else {
+          // Shift focus to the other input
+          let input = document.querySelector("input:not([disabled])")
+          input.focus()
         }
       }
     }
@@ -295,7 +299,7 @@
       let html = "<p class='cue'>"
                + match[1]
                + "<input type='text' placeholder='"
-                 + match[2] + "' name='0' />"
+                 + match[2] + "' name='0' autofocus />"
                + match[4]
 
       if (match[5]) {
@@ -310,6 +314,10 @@
 
       this.todo = this.answers.length
       this.cueElement.innerHTML = html
+
+      // Move focus to first input
+      let input = document.querySelector("input[name='0']")
+      input.focus()
 
       console.log(this.answers)
     }
@@ -406,7 +414,7 @@
       let player = new YT.Player('ytplayer', {
         height: '360'
       , width: '640'
-        // videoId: 'M7lc1UVf-VE',
+      , playerVars: {rel: 0} // hides Related Videos at pause
       , events: {
           // 'onReady': onPlayerReady,
           'onStateChange': onPlayerStateChange
@@ -418,7 +426,7 @@
   }
   
   let questionArray = [
-      { "phrase": "Мы (плыть) &плывём& на льдине."
+    { "phrase": "Мы (плыть) &плывём& на льдине."
       , "id": "nuOA--rq7vE" 
       , "verbs": ["плыть"]
       , "pronouns": ["мы"]
@@ -430,7 +438,7 @@
       , "verbs": ["плыть"]
       , "pronouns": ["мы"]
       , "start": 4
-      , "end": 9
+      , "end": 8
       }
     , { "phrase": "Все (бежать) &бегут& и я (бежать) &бегу&."
       , "id": "GY2RZSbtVWk"  
