@@ -436,7 +436,8 @@
       , "id": "GY2RZSbtVWk"  
       , "verbs": ["бежать"]
       , "pronouns": ["они", "я"]
-      , "start": 0
+      , "start": 22
+      , "end": 29
       }
     , { "phrase": "Я (бежать) &бегу&."
       , "id": "Ri3tBycAOg0" 
