@@ -108,16 +108,14 @@
     constructor (model) {
       this.setPool = model.setQuestionPool.bind(model)
       this.getNext = model.getNext.bind(model)
-      this.getLast = model.getLast.bind(model) ////////////////
+      // this.getLast = model.getLast.bind(model) ////////////////
 
       this.cueElement = document.querySelector("p.cue")
-      this.last = document.querySelector("button.last")
-      this.next = document.querySelector("button.next") ///////
+      // this.last = document.querySelector("button.last") ///////
+      this.next = document.querySelector("button.next")
       this.table = document.querySelector("table")
-      this.drag = document.querySelector("div.drag") //////////
+      // this.drag = document.querySelector("div.drag") //////////
       this.mask = document.querySelector("div.mask")
-      this.cheatP = this.mask.querySelector("p")
-      this.cheatMessage = "Do better next time"
 
       this.fadeDelay = 10 // fades in and out over 100 * 10 ms
       this.regex = /([^(]*)\((.+?)\)\s*&(.+?)&([^(]*)(\((.+?)\)\s*&(.+?)&)?(.*)/
@@ -133,17 +131,11 @@
       // Placeholders
       this.question = {}
       this.answers = []
-      this.cheat = false
-      this.todo = 0
-      this.state = "string state of YTPlayer"
-      this.goNextOnPause = false
-      this.videoOptions = {}
-      this.pauseDelay = 0
-      this.YTPlayer = null
 
       // TODO: Read options from contextual menus
       let options = { 
-      //   pronoun: "я"
+        shuffle: true
+      // , pronoun: "я"
       // , verb: "идти"
       // , multiple: true
       }
@@ -161,7 +153,7 @@
 
       listener = this.buttonPressed.bind(this)
       this.next.addEventListener("mouseup", listener, true)
-      this.last.addEventListener("mouseup", listener, true)
+      // this.last.addEventListener("mouseup", listener, true)
 
       this.buttonPressed()
     }
@@ -191,15 +183,8 @@
 
         if (!--this.todo) { 
           this.next.disabled = false
-
-          if (this.cheat) {
-            this.cheatP.innerText = this.cheatMessage
-            this.table.classList.remove("open")     
-          } else {
-            this.mask.classList.add("invisible")
-            this.playReward()
-          }
-
+          this.mask.classList.add("invisible")
+          this.playReward()
         } else {
           // Shift focus to the other input
           let input = document.querySelector("input:not([disabled])")
@@ -211,9 +196,6 @@
 
     showCheatSheet() {
       this.table.classList.toggle("open")
-
-      let showing = this.table.classList.contains("open")
-      this.cheat = this.cheat || showing
     }
 
 
@@ -245,8 +227,6 @@
     buttonPressed(event) {
       this.mask.classList.remove("invisible")
       this.table.classList.remove("open")
-      this.cheat = false
-      this.cheatP.innerText = ""
 
       if (this.state === "playing") {
         this.goNextOnPause = true
@@ -258,7 +238,7 @@
                       && event.target.classList.contains("last")
       this.nextQuestion(isBackButton, shiftClick)
       this.goNextOnPause = false
-      // this.next.disabled = true //XXXXXXXXXXXXXXXXXXXXXXXXXXXX//
+      this.next.disabled = true
     }
 
 
@@ -447,7 +427,7 @@
   }
   
   let questionArray = [
-    { "phrase": "Мы (плыть) &плывём& на льдине."
+      { "phrase": "Мы (плыть) &плывём& на льдине."
       , "id": "nuOA--rq7vE" 
       , "verbs": ["плыть"]
       , "pronouns": ["мы"]
@@ -466,141 +446,161 @@
       , "verbs": ["бежать"]
       , "pronouns": ["они", "я"]
       , "start": 22
-      , "end": 29
+      , "end": 37
       }
     , { "phrase": "Я (бежать) &бегу&."
       , "id": "Ri3tBycAOg0" 
       , "verbs": ["бежать"]
       , "pronouns": ["я"]
-      , "start": 55
+      , "start": 56
+      , "end": 60
       }
-    , { "phrase": "Я по улице (идти) &иду&, я улыбку всем дарю."
+    , { "phrase": "Я (идти) &иду& и пою обо всём хорошем. И улыбку свою я дарю прохожим."
       , "id": "rjxoWMtgbxo" 
       , "verbs": ["идти"]
       , "pronouns": ["я"]
-      , "start": 12
+      , "start": 10
+      , "end": 20
       }
     , { "phrase": "Когда (идти) &идёшь& ты не туда, придешь ли ты обратно?"
       , "id": "wQ9DPGXYTUc"  
       , "verbs": ["идти"]
       , "pronouns": ["ты"]
       , "start": 36
+      , "end": 48
       }
     , { "phrase": "Ну что ж ты не (идти) &идёшь&, моя любовь?"
       , "id": "ZPzeocv2O7A" 
       , "verbs": ["идти"]
       , "pronouns": ["ты"]
       , "start": 53
+      , "end": 61
       }
     , { "phrase": "Носорог (идти) &идёт&. Крокодил (плыть) &плывёт&."
       , "id": "x_piwY-YpGg" 
       , "verbs": ["идти", "плыть"]
       , "pronouns": ["он/она/оно"]
-      , "start": 29
+      , "start": 31
+      , "end": 41
       }
-    , { "phrase": "Куда (идти) &идём& мы с Пятачком?"
+    , { "phrase": "Куда (идти) &идём& мы с Пятачком — большой, большой секрет!"
       , "id": "WB1TcOmbCrQ" 
       , "verbs": ["идти"]
       , "pronouns": ["мы"]
       , "start": 13
+      , "end": 17
       }
-    , { "phrase": "Я спросил тебя: зачем (идти) &идёте& в горы вы?"
-      , "id": "q1qNnNNpuC4" 
+    , { "phrase": "Я спросил тебя: зачем (идти) &идёте& в гору вы?"
+      , "id": "tvCf-OCEVQk" 
       , "verbs": ["идти"]
       , "pronouns": ["вы"]
       , "start": 5
+      , "end": 12
       }
     , { "phrase": "Снег (идти) &идёт&. И всё вокруг чего-то ждёт."
       , "id": "vc6mB77esAI"
       , "verbs": ["идти"]
       , "pronouns": ["он"]
-      , "start": 51
+      , "start": 53
       , "end": 63
       }
-    , { "phrase": "Я снова куда-то (ехать) &еду&."
-      , "id": "LMYyje5Qu4c" 
-      , "verbs": ["ехать"]
-      , "pronouns": ["я"]
-      , "start": 8
-      }
+      // , { "phrase": "Я снова куда-то (ехать) &еду&."
+      //   , "id": "LMYyje5Qu4c" 
+      //   , "verbs": ["ехать"]
+      //   , "pronouns": ["я"]
+      //   , "start": 10
+      //   , "end": 14
+      //   }
     , { "phrase": "К нам (ехать) &едет& жених из-за границы!" 
       , "id": "SOQyUwcj71Q" 
       , "verbs": ["ехать"]
       , "pronouns": ["PRONOUN"]
-      , "start": 6
+      , "start": 7
+      , "end": 11
       }
     , { "phrase": "Я кручу педали и с горы как птица (лететь) &лечу&."
       , "id": "6FS14Li3AdQ" 
       , "verbs": ["лететь"]
       , "pronouns": ["я"]
       , "start": 162
+      , "end": 172
       }
     , { "phrase": "(лететь) &Летят& самолёты, (плыть) &плывут& корабли."
       , "id": "iLNjB2uUuUs" 
       , "verbs": ["лететь", "плыть"]
       , "pronouns": ["они"]
       , "start": 987
+      , "end": 992
       }
-    , { "phrase": "Ты (лететь) &летишь& куда, откуда?"
-      , "id": "3mYj7aZPWTQ" 
-    //, "id": "1ohlKfX6sGs?t=40s"  // ???????
-      , "verbs": ["лететь"]
-      , "pronouns": ["ты"]
-      , "start": 37
-      }
+      // , { "phrase": "Ты (лететь) &летишь& куда, откуда?"
+      //   , "id": "3mYj7aZPWTQ" 
+      // //, "id": "1ohlKfX6sGs?t=40s"  // ???????
+      //   , "verbs": ["лететь"]
+      //   , "pronouns": ["ты"]
+      //   , "start": 37
+      //   }
     , { "phrase": "Журавль по небу (лететь) &летит&."
       , "id": "9-pXfiXGwNQ"  
       , "verbs": ["лететь"]
       , "pronouns": ["он/она/оно"]
-      , "start": 35
+      , "start": 36
+      , "end": 40
       }
     , { "phrase": "Но зато он плавать может. И по небу (лететь) &летит&!" 
       , "id": "ymqmJSOxvvI" 
       , "verbs": ["лететь"]
       , "pronouns": ["он/она/оно"]
       , "start": 32
+      , "end": 40
       }
     , { "phrase": "Мы вдвоём (лететь) &летим& на облаке верхом."
       , "id": "S_059LyVKs0" 
       , "verbs": ["лететь"]
       , "pronouns": ["мы"]
-      , "start": 7
+      , "start": 6
+      , "end": 13
       }
     , { "phrase": "Вы куда (лететь) &летите&, в Ниццу?"
       , "id": "75JjflWKs98"  
       , "verbs": ["лететь"]
       , "pronouns": ["вы"]
       , "start": 137
+      , "end": 140
       }
     , { "phrase": "Вы к ним (лететь) &летите&? Отлично."
       , "id": "WTCBw3wJqkE" 
       , "verbs": ["лететь"]
       , "pronouns": ["вы"]
       , "start": 160
+      , "end": 162
       }
     , { "phrase": "По синему морю к зелёной земле (плыть) &плыву& я на белом своём корабле."
       , "id": "LQsBJbMt17I" 
       , "verbs": ["плыть"]
       , "pronouns": ["я"]
       , "start": 5
+      , "end": 14
       }
-    , { "phrase": "Ты от меня (бежать) &бежишь&."
+    , { "phrase": "... и (бежать) &бежишь& от меня ты."
       , "id": "6sPy0xnk8J4" 
       , "verbs": ["бежать"]
       , "pronouns": ["ты"]
       , "start": 27
+      , "end": 31
       }
-    , { "phrase": "(бежать) &Бежит& по лесу круглый ёж. (бежать) &Бежит& и поёт, что он на круг похож."
+    , { "phrase": "(бежать) &Бежит& по лесу круглый ёж. (бежать) &Бежит& и поёт, что он и сам на круг похож."
       , "id": "l9NX1xOHitk" 
       , "verbs": ["бежать"]
       , "pronouns": ["он/она/оно"]
       , "start": 33
+      , "end": 41
       }
     , { "phrase": "Мы (бежать) &бежим& с тобой по лужам."
       , "id": "qeXNepejiHE"
       , "verbs": ["бежать"]
       , "pronouns": ["мы"]
       , "start": 43
+      , "end": 47
       }
   ]
 
