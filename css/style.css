@@ -1,5 +1,14 @@
+h1, h3 {
+  text-align: center;
+}
+
 p.cue {
   /*font-weight: bold;*/
+}
+
+
+p.instructions {
+  font-weight: bold;
 }
 
 input[type=text] {
@@ -18,15 +27,32 @@ input[type=text]:disabled {
 }
 
 
-#ytplayer {
+div.reward {
+  position: relative;
+}
+
+
+div.reward > * {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 360px;
   width: 640px;
 }
 
 
-div#ytplayer {
+div.mask {
   background-color: #999;
+  transition: opacity 1s;
+  opacity: 1;
 }
+
+
+div.mask.invisible {
+  opacity: 0;
+  pointer-events: none;
+}
+
 
 ::-webkit-input-placeholder {
  text-align: center;
@@ -50,4 +76,53 @@ div#ytplayer {
  text-align: center;
  font-style: italic;
  color: #ccc; 
+}
+
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+
+th, td {
+  padding: 0.125em 0.5em;
+  text-align: center;
+}
+
+
+col.pronouns,
+tr.infinitives {
+  background-color: #bbf;
+  color: #fff;
+}
+
+
+col:not(.pronouns) {
+  width: 5em;
+}
+
+
+table {
+  position: fixed;
+  bottom: 0;
+  font-family: sans-serif;
+}
+
+
+td {
+  background-color: #ddf;
+  color: #66C;
+}
+
+
+td:first-child {
+  background-color: #99e;
+  color: #fff;
+  text-align: right;
+}
+
+
+th:first-child {
+  background-color: #88f;
 }

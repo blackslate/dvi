@@ -14,7 +14,8 @@
     setQuestionPool (options = {
       pronoun: undefined
     , verb: undefined
-    , dontShuffle: false
+    , multiple: undefined
+    , shuffle: undefined
     }) {
 
       let forPronoun = (phraseData) => {
@@ -52,7 +53,7 @@
                            .filter(forMultiple)
 
       if (pool.length) {
-        if (!options.dontShuffle) {
+        if (options.shuffle) {
           this._shuffle(pool)
         }
 
@@ -92,22 +93,15 @@
   }
 
 
-  class Viewer {
-    constructor (cueElement) {
-      this.cueElement = cueElement
-    }
-
-    show(questionHTML) {
-      this.cueElement.innerHTML = questionHTML
-    }
-  }
-
-
   class Controller {
-    constructor (model, viewer, cueElement) {
+
+    constructor (model) {
       this.setPool = model.setQuestionPool.bind(model)
       this.getNext = model.getNext.bind(model)
-      this.showQuestion = viewer.show.bind(viewer)
+
+      this.cueElement = document.querySelector("p.cue")
+      this.button = document.querySelector("button")
+      this.mask = document.querySelector("div.mask")
 
       this.fadeDelay = 10 // fades in and out over 100 * 10 ms
       this.regex = /([^(]*)\((.+?)\)\s*&(.+?)&([^(]*)(\((.+?)\)\s*&(.+?)&)?(.*)/
@@ -134,11 +128,53 @@
       this.setPool(options)
 
       let listener = this.checkInput.bind(this)
-      cueElement.addEventListener("input", listener, true)
+      this.cueElement.addEventListener("input", listener, true)
 
-      this.nextQuestion()
+      listener = this.nextButtonPressed.bind(this)
+      this.button.addEventListener("mouseup", listener, true)
+
+      this.nextButtonPressed()
     }
 
+
+    // INTERACTIONS // INTERACTIONS // INTERACTIONS // INTERACTIONS //
+
+    checkInput(event) {
+      // console.log("checkInput", event)
+      let target = event.target
+      let index = target.name
+      // Ensure value and expected have the same format
+      let value = target.value.toLowerCase()
+                              .replace("́", "")
+      let expected = this.answers[index].toLowerCase()
+                                        .replace("́", "")
+
+      let correct = value === expected
+      if (!correct) {
+        correct = (value === (expected.replace("ё", "е")))
+      }
+
+      if (correct) {
+        target.value = this.answers[index] // with capitals, ё and ́
+        target.disabled = true
+
+        if (!--this.todo) { 
+          this.button.disabled = false
+          this.mask.classList.add("invisible")
+          this.playReward()
+        }
+      }
+    }
+
+
+    nextButtonPressed() {
+      this.nextQuestion()
+      // this.button.disabled = true //XXXXXXXXXXXXXXXXXXXXXXXXXXXX//
+      this.mask.classList.remove("invisible")
+    }
+
+
+    // QUESTION MANAGEMENT // QUESTION MANAGEMENT // QUESTIONS //
 
     nextQuestion() {
       let question = this.getNext()
@@ -220,29 +256,13 @@
       html += "</p>"
 
       this.todo = this.answers.length
-      this.showQuestion(html)
+      this.cueElement.innerHTML = html
 
       console.log(this.answers)
     }
 
 
-    checkInput(event) {
-      // console.log("checkInput", event)
-      let target = event.target
-      let index = target.name
-      let value = target.value.toLowerCase()
-      let expected = this.answers[index].toLowerCase()
-
-      if (value === expected) {
-        target.value = this.answers[index]
-        target.disabled = true
-
-        if (!--this.todo) {
-          this.playReward()
-        }
-      }
-    }
-
+    // VIDEO // VIDEO // VIDEO // VIDEO // VIDEO // VIDEO // VIDEO //
 
     setPlayer(YTPlayer) {
       console.log("YouTube Player loaded")
@@ -259,11 +279,6 @@
 
 
     pausePlayback()  {
-      this.fadeToZero()
-    }
-
-
-    fadeToZero() {
       let fade = this.fade.bind(this)
 
       this.increment = -1
@@ -285,7 +300,6 @@
         } else {
           this.YTPlayer.pauseVideo()
           this.YTPlayer.setVolume(100)
-
           // this.YTPlayer.unMute()
         }
       }
@@ -295,14 +309,8 @@
 
   class DVI {
     constructor(questionArray) {
-      let cueElement = document.querySelector("p.cue")
-
       let model = new Model(questionArray)
-      let viewer = new Viewer(cueElement)
-      this.controller = new Controller(
-        model
-      , viewer
-      , cueElement)
+      this.controller = new Controller(model)
     }
 
 
@@ -348,13 +356,13 @@
       , "pronouns": ["я"]
       , "start": 12
       }
-    , { "phrase": "Когда (идти) &идешь& ты не туда, придешь ли ты обратно?"
+    , { "phrase": "Когда (идти) &идёшь& ты не туда, придешь ли ты обратно?"
       , "id": "wQ9DPGXYTUc"  
       , "verbs": ["идти"]
       , "pronouns": ["ты"]
       , "start": 36
       }
-    , { "phrase": "Ну что ж ты не (идти) &идешь&, моя любовь?"
+    , { "phrase": "Ну что ж ты не (идти) &идёшь&, моя любовь?"
       , "id": "ZPzeocv2O7A" 
       , "verbs": ["идти"]
       , "pronouns": ["ты"]
@@ -372,7 +380,7 @@
       , "pronouns": ["мы"]
       , "start": 13
       }
-    , { "phrase": "Я спросил тебя: зачем (идти) &идете& в горы вы?"
+    , { "phrase": "Я спросил тебя: зачем (идти) &идёте& в горы вы?"
       , "id": "q1qNnNNpuC4" 
       , "verbs": ["идти"]
       , "pronouns": ["вы"]
