@@ -66,9 +66,19 @@
 
     getNext() {
       let question = this.pool.shift()
+      this.pool.push(question) // temporary
+
       if (!this.pool.length) {
         console.log("LAST QUESTION") // TODO
       }
+
+      return question
+    }
+
+
+    getLast() {
+      let question = this.pool.pop()
+      this.pool.unshift(question)
 
       return question
     }
@@ -98,9 +108,13 @@
     constructor (model) {
       this.setPool = model.setQuestionPool.bind(model)
       this.getNext = model.getNext.bind(model)
+      this.getLast = model.getLast.bind(model)
 
       this.cueElement = document.querySelector("p.cue")
-      this.button = document.querySelector("button")
+      this.last = document.querySelector("button.last")
+      this.next = document.querySelector("button.next")
+      this.table = document.querySelector("table")
+      this.drag = document.querySelector("div.drag")
       this.mask = document.querySelector("div.mask")
 
       this.fadeDelay = 10 // fades in and out over 100 * 10 ms
@@ -130,10 +144,17 @@
       let listener = this.checkInput.bind(this)
       this.cueElement.addEventListener("input", listener, true)
 
-      listener = this.nextButtonPressed.bind(this)
-      this.button.addEventListener("mouseup", listener, true)
+      listener = this.showCheatSheet.bind(this)
+      this.table.addEventListener("mousedown", listener, true)
 
-      this.nextButtonPressed()
+      // listener = this.startDrag.bind(this)
+      // this.table.addEventListener("mousedown", listener, true)
+
+      listener = this.buttonPressed.bind(this)
+      this.next.addEventListener("mouseup", listener, true)
+      this.last.addEventListener("mouseup", listener, true)
+
+      this.buttonPressed()
     }
 
 
@@ -143,6 +164,7 @@
       // console.log("checkInput", event)
       let target = event.target
       let index = target.name
+
       // Ensure value and expected have the same format
       let value = target.value.toLowerCase()
                               .replace("́", "")
@@ -159,7 +181,7 @@
         target.disabled = true
 
         if (!--this.todo) { 
-          this.button.disabled = false
+          this.next.disabled = false
           this.mask.classList.add("invisible")
           this.playReward()
         }
@@ -167,17 +189,60 @@
     }
 
 
-    nextButtonPressed() {
-      this.nextQuestion()
-      // this.button.disabled = true //XXXXXXXXXXXXXXXXXXXXXXXXXXXX//
+    showCheatSheet() {
+      this.table.classList.toggle("open")
+    }
+
+
+    // startDrag(event) {
+      //   let target = event.target
+      //   let rect = target.getBoundingClientRect()
+
+
+
+      //   let dragInflection = (event) => {
+
+      //   }
+
+      //   let stopDrag = () => {
+      //     this.drag.style = "display:none;"
+      //   }
+
+      //   this.drag.style = "display:block;" 
+      //                   + "left:" + rect.left + "px;"
+      //                   + "top:"  + rect.top  + "px;"
+      //                   + "width:" + rect.width + "px;"
+      //   this.drag.innerText = target.innerText
+
+      //   document.body.onmousemove = dragInflection
+      //   document.body.onmouseup = stopDrag
+    // }
+
+
+    buttonPressed(event) {
       this.mask.classList.remove("invisible")
+      this.table.classList.remove("open")
+
+      if (this.state === "playing") {
+        this.goNextOnPause = true
+        return this.pausePlayback()
+      }
+
+      let shiftClick = event && event.shiftKey
+      let isBackButton = event
+                      && event.target.classList.contains("last")
+      this.nextQuestion(isBackButton, shiftClick)
+      this.goNextOnPause = false
+      // this.next.disabled = true //XXXXXXXXXXXXXXXXXXXXXXXXXXXX//
     }
 
 
     // QUESTION MANAGEMENT // QUESTION MANAGEMENT // QUESTIONS //
 
-    nextQuestion() {
-      let question = this.getNext()
+    nextQuestion(isBackButton, showComplete) {
+      let question = isBackButton
+                   ? this.getLast()
+                   : this.getNext()
       /* 
         { "phrase": "Мы (бежать) &бежим& с тобой по лужам."
         , "id": "qeXNepejiHE"
@@ -196,22 +261,10 @@
       }
 
       this.pauseDelay = (question.end-question.start) * 1000 || 3000
-
-      // small: Player height is 240px
-      //        and player dimensions are at least 320px by 240px
-      //        for 4:3 aspect ratio.
-      // medium: Player height is 360px
-      //         and player dimensions are 640px by 360px
-      //         (for 16:9 aspect ratio)
-      //         or 480px by 360px (for 4:3 aspect ratio).
-      // large: Player height is 480px, and player dimensions are 853px by 480px (for 16:9 aspect ratio) or 640px by 480px (for 4:3 aspect ratio).
-      // hd720: Player height is 720px, and player dimensions are 1280px by 720px (for 16:9 aspect ratio) or 960px by 720px (for 4:3 aspect ratio).
-      // hd1080: Player height is 1080px, and player dimensions are 1920px by 1080px (for 16:9 aspect ratio) or 1440px by 1080px (for 4:3 aspect ratio).
-      // highres: Player height is greater than 1080px, which means that the player's aspect ratio is greater than 1920px by 1080px.
-      // default
-
-      // console.log("options", videoOptions)
-      // console.log(question)
+ 
+      if (showComplete) {
+        this.showComplete()
+      }
     }
 
 
@@ -262,11 +315,40 @@
     }
 
 
+    showComplete() {
+      let answer = this.answers[0]
+      let input = document.querySelector("input[name='0']")
+      input.value = answer
+
+      if (answer = this.answers[1]) {
+        input = document.querySelector("input[name='1']")
+        input.value = answer
+      }
+
+      this.mask.classList.add("invisible")
+      this.playReward()
+    }
+
+
     // VIDEO // VIDEO // VIDEO // VIDEO // VIDEO // VIDEO // VIDEO //
 
     setPlayer(YTPlayer) {
       console.log("YouTube Player loaded")
       this.YTPlayer = YTPlayer
+    }
+
+
+    stateChange(event) {
+      this.state = {
+       "-1": "unstarted"
+      , 0: "ended"
+      , 1: "playing"
+      , 2: "paused"
+      , 3: "buffering"
+      , 5: "video cued"
+      }[event.data]
+
+      console.log("stateChange", this.state)
     }
 
 
@@ -301,6 +383,10 @@
           this.YTPlayer.pauseVideo()
           this.YTPlayer.setVolume(100)
           // this.YTPlayer.unMute()
+
+          if (this.goNextOnPause) {
+            this.buttonPressed()
+          }
         }
       }
     }
@@ -315,10 +401,16 @@
 
 
     initializeYouTubePlayer() {
+      let onPlayerStateChange = this.controller.stateChange.bind(this.controller)
+
       let player = new YT.Player('ytplayer', {
         height: '360'
       , width: '640'
-        // videoId: 'M7lc1UVf-VE'
+        // videoId: 'M7lc1UVf-VE',
+      , events: {
+          // 'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
       })
 
       this.controller.setPlayer(player)
@@ -326,17 +418,19 @@
   }
   
   let questionArray = [
-    { "phrase": "Мы (плыть) &плывём& на льдине."
+      { "phrase": "Мы (плыть) &плывём& на льдине."
       , "id": "nuOA--rq7vE" 
       , "verbs": ["плыть"]
       , "pronouns": ["мы"]
-      , "start": 0
+      , "start": 60
+      , "end": 65
       }
     , { "phrase": "Мы (ехать) &едем& в далёкие края."
       , "id": "rqceEodDe5Q" 
       , "verbs": ["плыть"]
       , "pronouns": ["мы"]
-      , "start": 0
+      , "start": 4
+      , "end": 9
       }
     , { "phrase": "Все (бежать) &бегут& и я (бежать) &бегу&."
       , "id": "GY2RZSbtVWk"  
@@ -391,7 +485,7 @@
       , "verbs": ["идти"]
       , "pronouns": ["он"]
       , "start": 51
-      , "end": 62
+      , "end": 63
       }
     , { "phrase": "Я снова куда-то (ехать) &еду&."
       , "id": "LMYyje5Qu4c" 

@@ -85,9 +85,11 @@ table, th, td {
 }
 
 
-th, td {
+th, td, div.drag {
+  height: 1.5em;
   padding: 0.125em 0.5em;
   text-align: center;
+  font-family: sans-serif;
 }
 
 
@@ -105,14 +107,20 @@ col:not(.pronouns) {
 
 table {
   position: fixed;
-  bottom: 0;
-  font-family: sans-serif;
+  bottom: -11em;
+  transition: bottom 0.5s;
+}
+
+
+table.open {
+  bottom: 0em;
 }
 
 
 td {
   background-color: #ddf;
   color: #66C;
+  cursor: pointer;
 }
 
 
@@ -120,9 +128,31 @@ td:first-child {
   background-color: #99e;
   color: #fff;
   text-align: right;
+  cursor: default;
 }
 
 
 th:first-child {
   background-color: #88f;
+  color: #003;
+  cursor: pointer;
+}
+
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+
+div.drag {
+  position: absolute;
+  padding: 0.125em 0;
+  background-color: rgba(192,192,255,0.5);
+  display: none;
 }

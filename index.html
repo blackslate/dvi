@@ -13,21 +13,22 @@
 <h3>Анастасия Антонова</h3>
 <p class="instructions">Вставьте глагол в правильной форме:</p>
 <p class="cue">Complete this sentence by filling in the <input type="text" name="answer" value="" placeholder="blank" /></p>
-<button type="button">Далее &gt;</button>
+<button type="button" class="last">&lt; BACK</button>
+<button type="button" class="next">Далее &gt;</button>
 
 <div class="reward">
   <div id="ytplayer"></div>
   <div class="mask"></div>
 </div>
 
-<table>
+<table class="noselect">
   <colgroup>
     <col class="pronouns">
       <col><col><col><col><col>
   </colgroup>
   <tbody>
     <tr class="infinitives">
-      <th></th>
+      <th>чит-лист</th>
       <th>идти́</th>
       <th>е́хать</th>
       <th>бежа́ть</th>
@@ -84,6 +85,8 @@
     </tr>
   </tbody>
 </table>
+
+<div class="drag">лети́м</div>
 
 <script src="js/script.js"></script>
 <script>
