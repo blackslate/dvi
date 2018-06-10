@@ -108,13 +108,13 @@
     constructor (model) {
       this.setPool = model.setQuestionPool.bind(model)
       this.getNext = model.getNext.bind(model)
-      this.getLast = model.getLast.bind(model) ////////////////
+      // this.getLast = model.getLast.bind(model) ////////////////
 
       this.cueElement = document.querySelector("p.cue")
-      this.last = document.querySelector("button.last")
-      this.next = document.querySelector("button.next") ///////
+      // this.last = document.querySelector("button.last") ///////
+      this.next = document.querySelector("button.next")
       this.table = document.querySelector("table")
-      this.drag = document.querySelector("div.drag") //////////
+      // this.drag = document.querySelector("div.drag") //////////
       this.mask = document.querySelector("div.mask")
 
       this.fadeDelay = 10 // fades in and out over 100 * 10 ms
@@ -153,7 +153,7 @@
 
       listener = this.buttonPressed.bind(this)
       this.next.addEventListener("mouseup", listener, true)
-      this.last.addEventListener("mouseup", listener, true)
+      // this.last.addEventListener("mouseup", listener, true)
 
       this.buttonPressed()
     }
@@ -238,7 +238,7 @@
                       && event.target.classList.contains("last")
       this.nextQuestion(isBackButton, shiftClick)
       this.goNextOnPause = false
-      // this.next.disabled = true //XXXXXXXXXXXXXXXXXXXXXXXXXXXX//
+      this.next.disabled = true
     }
 
 

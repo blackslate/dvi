@@ -6,116 +6,118 @@
 
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script src="https://www.youtube.com/player_api"></script>
-
 </head>
+
 <body>
-<h1>Глаголы движения</h1>
-<h3>Анастасия Антонова</h3>
-<p class="instructions">Вставьте глагол в правильной форме:</p>
-<p class="cue">Complete this sentence by filling in the <input type="text" name="answer" value="" placeholder="blank" /></p>
-<button type="button" class="last">&lt; BACK</button>
-<button type="button" class="next">Далее &gt;</button>
+  <main>
+    <h1>Глаголы движения</h1>
+    <h3>Анастасия Антонова</h3>
+    <p class="instructions">Вставьте глагол в правильной форме:</p>
+    <p class="cue">Complete this sentence by filling in the <input type="text" name="answer" value="" placeholder="blank" /></p>
+    <!-- <button type="button" class="last">&lt; BACK</button> -->
+    <button type="button" class="next">Далее &gt;</button>
 
-<div class="reward">
-  <div id="ytplayer"></div>
-  <div class="mask"></div>
-</div>
+    <div class="reward">
+      <div id="ytplayer"></div>
+      <div class="mask"><p></p></div>
+    </div>
 
-<table class="noselect">
-  <colgroup>
-    <col class="pronouns">
-      <col><col><col><col><col>
-  </colgroup>
-  <tbody>
-    <tr class="infinitives">
-      <th>чит-лист</th>
-      <th>идти́</th>
-      <th>е́хать</th>
-      <th>бежа́ть</th>
-      <th>лете́ть</th>
-      <th>плыть</th>
-    </tr>
-    <tr>
-      <td>я</td>
-      <td>иду́</td>
-      <td>е́ду</td>
-      <td>бегу́</td>
-      <td>лечу́</td>
-      <td>плыву́</td>
-    </tr>
-    <tr>
-      <td>ты</td>
-      <td>идёшь</td>
-      <td>е́дешь</td>
-      <td>бежи́шь</td>
-      <td>лети́шь</td>
-      <td>плывёшь</td>
-    </tr>
-    <tr>
-      <td>он/она́/оно́</td>
-      <td>идёт</td>
-      <td>е́дет</td>
-      <td>бежи́т</td>
-      <td>лети́т</td>
-      <td>плывёт</td>
-    </tr>
-    <tr>
-      <td>мы</td>
-      <td>идём</td>
-      <td>е́дем</td>
-      <td>бежи́м</td>
-      <td>лети́м</td>
-      <td>плывём</td>
-    </tr>
-    <tr>
-      <td>вы</td>
-      <td>идёте</td>
-      <td>е́дете</td>
-      <td>бежи́те</td>
-      <td>лети́те</td>
-      <td>плывёте</td>
-    </tr>
-    <tr>
-      <td>они́</td>
-      <td>иду́т</td>
-      <td>е́дут</td>
-      <td>бегу́т</td>
-      <td>летя́т</td>
-      <td>плыву́т</td>
-    </tr>
-  </tbody>
-</table>
+    <table class="noselect">
+      <colgroup>
+        <col class="pronouns">
+          <col><col><col><col><col>
+      </colgroup>
+      <tbody>
+        <tr class="infinitives">
+          <th>чит-лист</th>
+          <th>идти́</th>
+          <th>е́хать</th>
+          <th>бежа́ть</th>
+          <th>лете́ть</th>
+          <th>плыть</th>
+        </tr>
+        <tr>
+          <td>я</td>
+          <td>иду́</td>
+          <td>е́ду</td>
+          <td>бегу́</td>
+          <td>лечу́</td>
+          <td>плыву́</td>
+        </tr>
+        <tr>
+          <td>ты</td>
+          <td>идёшь</td>
+          <td>е́дешь</td>
+          <td>бежи́шь</td>
+          <td>лети́шь</td>
+          <td>плывёшь</td>
+        </tr>
+        <tr>
+          <td>он/она́/оно́</td>
+          <td>идёт</td>
+          <td>е́дет</td>
+          <td>бежи́т</td>
+          <td>лети́т</td>
+          <td>плывёт</td>
+        </tr>
+        <tr>
+          <td>мы</td>
+          <td>идём</td>
+          <td>е́дем</td>
+          <td>бежи́м</td>
+          <td>лети́м</td>
+          <td>плывём</td>
+        </tr>
+        <tr>
+          <td>вы</td>
+          <td>идёте</td>
+          <td>е́дете</td>
+          <td>бежи́те</td>
+          <td>лети́те</td>
+          <td>плывёте</td>
+        </tr>
+        <tr>
+          <td>они́</td>
+          <td>иду́т</td>
+          <td>е́дут</td>
+          <td>бегу́т</td>
+          <td>летя́т</td>
+          <td>плыву́т</td>
+        </tr>
+      </tbody>
+    </table>
 
-<div class="drag">лети́м</div>
+    <div class="drag">лети́м</div>
+  </main>
 
-<script src="js/script.js"></script>
-<script>
-  /** GLOBAL YOUTUBE CODE **/
+  <script src="js/script.js"></script>
+  <script>
+    /** GLOBAL YOUTUBE CODE **/
 
-  // Replace the 'ytplayer' div element with an <iframe> and
-  // YouTube player after the API code downloads.
-  
-  var player;
-  function onYouTubePlayerAPIReady() {
-    // console.log("global", YT.Player)
-    // console.log(window.dvi)
-    window.dvi.initializeYouTubePlayer()
-
+    // Replace the 'ytplayer' div element with an <iframe> and
+    // YouTube player after the API code downloads.
     
-    // player = new YT.Player('ytplayer', {
-    //   height: '360',
-    //   width: '640',
-    //   videoId: 'M7lc1UVf-VE'
-    // });
-    
-  }
+    var player;
+    function onYouTubePlayerAPIReady() {
+      // console.log("global", YT.Player)
+      // console.log(window.dvi)
+      window.dvi.initializeYouTubePlayer()
 
-  function onPlayerReady() {
-    console.log("Player ready")
-  }
+      
+      // player = new YT.Player('ytplayer', {
+      //   height: '360',
+      //   width: '640',
+      //   videoId: 'M7lc1UVf-VE'
+      // });
+      
+    }
 
-  /** END OF GLOBAL CODE **/
-</script>
+    function onPlayerReady() {
+      console.log("Player ready")
+    }
+
+    /** END OF GLOBAL CODE **/
+  </script>
 
 </body>
 </html>
