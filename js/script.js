@@ -116,6 +116,8 @@
       this.table = document.querySelector("table")
       this.drag = document.querySelector("div.drag") //////////
       this.mask = document.querySelector("div.mask")
+      this.cheatP = this.mask.querySelector("p")
+      this.cheatMessage = "Do better next time"
 
       this.fadeDelay = 10 // fades in and out over 100 * 10 ms
       this.regex = /([^(]*)\((.+?)\)\s*&(.+?)&([^(]*)(\((.+?)\)\s*&(.+?)&)?(.*)/
@@ -131,6 +133,13 @@
       // Placeholders
       this.question = {}
       this.answers = []
+      this.cheat = false
+      this.todo = 0
+      this.state = "string state of YTPlayer"
+      this.goNextOnPause = false
+      this.videoOptions = {}
+      this.pauseDelay = 0
+      this.YTPlayer = null
 
       // TODO: Read options from contextual menus
       let options = { 
@@ -182,8 +191,15 @@
 
         if (!--this.todo) { 
           this.next.disabled = false
-          this.mask.classList.add("invisible")
-          this.playReward()
+
+          if (this.cheat) {
+            this.cheatP.innerText = this.cheatMessage
+            this.table.classList.remove("open")     
+          } else {
+            this.mask.classList.add("invisible")
+            this.playReward()
+          }
+
         } else {
           // Shift focus to the other input
           let input = document.querySelector("input:not([disabled])")
@@ -195,6 +211,9 @@
 
     showCheatSheet() {
       this.table.classList.toggle("open")
+
+      let showing = this.table.classList.contains("open")
+      this.cheat = this.cheat || showing
     }
 
 
@@ -226,6 +245,8 @@
     buttonPressed(event) {
       this.mask.classList.remove("invisible")
       this.table.classList.remove("open")
+      this.cheat = false
+      this.cheatP.innerText = ""
 
       if (this.state === "playing") {
         this.goNextOnPause = true

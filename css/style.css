@@ -1,6 +1,27 @@
-h1, h3 {
-  text-align: center;
+html, body {
+  height: 100%;
+  margin: 0
 }
+
+
+body {
+  background-color: #000;
+}
+
+
+main {
+  width: 640px;
+  background-color: #fff;
+  height: 100%;
+  margin: 0 auto;
+  border: solid 8px #fff;
+}
+
+
+h1, h3 {
+  text-align: center;;
+}
+
 
 p.cue {
   /*font-weight: bold;*/
@@ -42,9 +63,17 @@ div.reward > * {
 
 
 div.mask {
-  background-color: #999;
+  background-color: #eee;
   transition: opacity 1s;
   opacity: 1;
+
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 5em;
+
+  color: #aaa;
 }
 
 
@@ -109,6 +138,7 @@ table {
   position: fixed;
   bottom: -11em;
   transition: bottom 0.5s;
+  margin: 0 4.2em;
 }
 
 
@@ -150,9 +180,9 @@ th:first-child {
 }
 
 
-div.drag {
+/*div.drag {
   position: absolute;
   padding: 0.125em 0;
   background-color: rgba(192,192,255,0.5);
   display: none;
-}
+}*/
