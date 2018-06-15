@@ -8,50 +8,93 @@
 
 
   class Cell {
-    constructor(parentElement) {
+    constructor(parentElement, callback) {
       this.parentElement = parentElement
+      this.callback = callback
 
-      let rect = parentElement.getBoundingClientRect()
+      // Placeholders included here for reference
+      this.element = undefined // canvas or GIF image
+      this.context = undefined
+      this.options = {}
+      this.verbs = []
+      this.height = 0
+      this.width = 0
+      this.left = 0
+      this.right = 0
 
-      this.size = rect.width
-      this.image = document.createElement("img")
-      this.canvasElement = this._createCanvas()
-      this.svg = this._createSVG()
+      // Events
+      let listener = this.treatClick.bind(this)
+      this.parentElement.addEventListener("mousedown", listener, true)
 
-      this._setElement(this.canvasElement)
-
-      let listener = this.toggleAnimation.bind(this)
+      listener = this.toggleAnimation.bind(this)
       this.parentElement.addEventListener("mouseenter", listener, true)
       this.parentElement.addEventListener("mouseleave", listener, true)
+      
+      // GIF placeholder
+      this.image = document.createElement("img")
+
+      // Play Arrow SVG
+      this.svg = this._createSVG()
+
+      // Canvas
+      let rect = parentElement.getBoundingClientRect()
+      this.size = rect.width
+      this.canvasElement = this._createCanvas()
+
+      // p element for phrase
+      this.legend = this._createLegend()
+
+      this._setElement(this.canvasElement)
     }
 
 
-    setImage(options={}) {
-      // console.log("setImage", options)
+    // EVENTS // EVENTS // EVENTS // EVENTS // EVENTS // EVENTS //
 
-      this.src = options.src
-      this.phrase = options.phrase || "No phrase given"
-      this.audio = options.audio
-      this.verbs = options.verbs
-
-      let listener = this._treatLoadedImage.bind(this)
-      this.image.onload = listener
-      this.image.onerror = listener
-
-      this.image.src = this.src
+    treatClick(event) {
+      this.callback(this)
     }
 
 
-    _treatLoadedImage(event) {
+    treatLoadedImage(event) {
       if (event.type === "error") {
         // TODO: get a new image?
         return console.log(event)
       }
 
       this._setDimensionsToFit()
-      // this..top, left, width, height
       this._createStillImage()
       this._toggleGrayscale(false)
+
+      // this._setElement(this.image, true)
+    }
+
+    // PUBLIC METHODS // PUBLIC METHODS // PUBLIC METHODS //
+
+    setImage(options) {
+      this.options = options || {}
+      this.verbs = options.verbs
+
+      let listener = this.treatLoadedImage.bind(this)
+      this.image.onload = listener
+      this.image.onerror = listener
+
+      this.image.src = this.options.src
+
+      this.legend.innerText = this.options.phrase
+    }
+
+
+    treatLoadedImage(event) {
+      if (event.type === "error") {
+        // TODO: get a new image?
+        return console.log(event)
+      }
+
+      this._setDimensionsToFit()
+      this._createStillImage()
+      this._toggleGrayscale(false)
+
+      // this._setElement(this.image, true)
     }
 
 
@@ -64,11 +107,6 @@
     }
 
 
-    pause() {
-
-    }
-
-
     showError() {
       this._toggleGrayscale(true)
     }
@@ -78,6 +116,7 @@
 
     }
 
+    // PRIVATE METHODS // PRIVATE METHODS // PRIVATE METHODS //
 
     _createSVG() {
       let svgns = "http://www.w3.org/2000/svg"
@@ -94,17 +133,6 @@
       svg.appendChild(use)
 
       return svg
-    }
-
-
-    _setElement(element, noPlayArrow) {
-      this._empty()
-      this.element = element
-      this.parentElement.appendChild(element)
-
-      if (!noPlayArrow) {
-        this.parentElement.appendChild(this.svg)
-      }
     }
 
 
@@ -130,10 +158,37 @@
     }
 
 
+    _createLegend() {
+      let p = document.createElement("p")
+      p.classList.add("legend")
+
+      return p
+    }
+
+
+    _setElement(element, noPlayArrow) {
+      this._empty()
+      this.element = element
+      this.parentElement.appendChild(element)
+
+      if (!noPlayArrow) {
+        this.parentElement.appendChild(this.svg)
+      } else {
+        element.style = "width:" + this.width +"px;"
+                      + "height:" + this.height + "px;"
+                      + "left:" + this.left + "px;"
+                      + "position: relative;"
+
+      }
+
+      this.parentElement.appendChild(this.legend)
+    }
+
+
     _setDimensionsToFit() {
       let width = this.image.width
       let height = this.image.height
-      console.log(this.src, width, height)
+      // console.log(this.src, width, height)
 
       let ratio = Math.min(this.size / width
                          , this.size / height)
@@ -289,48 +344,36 @@
       // this.setPool = model.setQuestionPool.bind(model)
       this.getNext = model.getNext.bind(model)
 
-      let query = "div.images div div"
+      let listener = this.checkAnswer.bind(this)
+      let query = "div.cell"
       let createCell = (cellElement, index) => {
-        this.cells[index] = new Cell(cellElement)
+        this.cells[index] = new Cell(cellElement, listener)
       }
 
-      this.cue = document.querySelector("p.cue")
+      this.cueElement = document.querySelector("p.cue")
       this.cells = [].slice.call(document.querySelectorAll(query))
       this.cells.forEach(createCell)
-     
+
       this.nextPressed()
     }
 
 
-    checkAnswer(event) {
-      let target = event.target
-      let verb = target.name
-
-      if (verb === this.verb) {
-        // The right verb was clicked. Highlight the answer, hide the
-        // other answers, pause, then show a new image
-        this.showCorrect(target)
-
-      } else {
-        target.disabled = true
-      }
-    }
-
-
-    showCorrect(button) {
-
+    checkAnswer(verbs) {
+      let wrong = verbs.indexOf(this.cue) < 0
+      return !wrong
     }
 
 
     nextPressed(event) {
       let pool = this.getNext()
 
-      let cue = pool.cue
+      this.cue = pool.cue
       let _displayImage = this._displayImage.bind(this)
 
       pool.forEach(_displayImage)
-      this.cue.innerText = cue
+      this.cueElement.innerText = this.cue
     }
+
 
     _displayImage(imageData, index) {
       let cell = this.cells[index]
@@ -447,7 +490,7 @@
       }
     , { "src": "img/drive/trucks.gif"
       , "verbs": ["е́хать"]
-      , "phrase": "XXX"
+      , "phrase": "грузовики идут, человек едет"
       , "audio": "audio/drive/trucks.mp3"
       }
 

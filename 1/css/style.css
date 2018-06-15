@@ -1,3 +1,8 @@
+body {
+  text-align: center;
+}
+
+
 p.cue {
   text-align: center;
   font-size: 3em;
@@ -33,18 +38,6 @@ p.cue {
 
 }
 
-/*.top div.left {
-  background-color: #300;
-}
-
-.top div.right {
-  background-color: #030;
-}
-
-.bottom div.left {
-  background-color: #003;
-}*/
-
 
 img {
   max-width: 100%;
@@ -56,6 +49,7 @@ div.grayscale img,
 div.grayscale canvas{
   -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
   filter: grayscale(100%);
+  opacity: 0.5;
 }
 
 
@@ -66,4 +60,18 @@ svg {
   top: calc(50% - 25px);
   left: calc(50% - 25px);
   transform: translate(-25px -25px);
+}
+
+
+p.legend {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 1.5em;
+  color: #fff;
+  text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
 }
