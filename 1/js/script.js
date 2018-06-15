@@ -24,13 +24,13 @@
 
     play(src) {
       this.audio.src = src
-      console.log("play", src)
+      // console.log("play", src)
       // this.audio.play()
     }
 
 
     _audioLoaded(event) {
-      console.log(event.type)
+      // console.log(event.type)
 
       if (event.type === "error") {
         return console.log("ERROR:", event)
@@ -73,6 +73,10 @@
       // GIF placeholder
       this.image = document.createElement("img")
 
+      listener = this.treatLoadedImage.bind(this)
+      this.image.onload = listener
+      this.image.onerror = listener
+
       // Play Arrow SVG
       this.svg = this._createSVG()
 
@@ -84,7 +88,7 @@
       // p element for phrase
       this.legend = this._createLegend()
 
-      this._setElement(this.canvasElement)
+      // this._setElement(this.canvasElement)
     }
 
 
@@ -110,9 +114,13 @@
         return console.log(event)
       }
 
+      // console.log("load", event.target.src, event.target.width, event.target.height)
       this._setDimensionsToFit()
       this._createStillImage()
       this._toggleGrayscale(false)
+      this.parentElement.classList.remove("correct") //, "grayscale")
+
+      // this._setElement(this.image, true)
     }
 
     // PUBLIC METHODS // PUBLIC METHODS // PUBLIC METHODS //
@@ -121,28 +129,14 @@
       this.options = options || {}
       this.verbs = options.verbs
 
-      let listener = this.treatLoadedImage.bind(this)
-      this.image.onload = listener
-      this.image.onerror = listener
-
       this.image.src = this.options.src
+      this.image.removeAttribute("style")
+      this.canvasElement.removeAttribute("style")
+
+     this._setElement(this.canvasElement)
+     this.clicked = false
 
       this.legend.innerHTML = this.options.phrase
-    }
-
-
-    treatLoadedImage(event) {
-      if (event.type === "error") {
-        // TODO: get a new image?
-        return console.log(event)
-      }
-
-      this._setDimensionsToFit()
-      this._createStillImage()
-      this._toggleGrayscale(false)
-      this.parentElement.classList.remove("correct", "grayscale")
-
-      // this._setElement(this.image, true)
     }
 
 
@@ -234,9 +228,10 @@
 
 
     _setDimensionsToFit() {
-      let width = this.image.width
-      let height = this.image.height
-      // console.log(this.src, width, height)
+      let image = document.createElement("img")
+      image.src = this.image.src
+      let width = image.width
+      let height = image.height
 
       let ratio = Math.min(this.size / width
                          , this.size / height)
@@ -245,6 +240,8 @@
 
       this.left = (this.size - width) / 2
       this.top = (this.size - height) / 2
+
+      // console.log("fit ", this.image.src, ratio, width, height)
     }
 
 
@@ -257,6 +254,9 @@
       , this.width  // dWidth
       , this.height // dHeight
       )
+
+      // console.log("img ", this.width, this.height, this.left, this.top)
+      // console.log("***")
     }
 
 
