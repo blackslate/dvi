@@ -7,6 +7,20 @@
   }
 
 
+  function shuffle(array) {
+    var j, x, i;
+
+    for (i = array.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      x = array[i];
+      array[i] = array[j];
+      array[j] = x;
+    }
+
+    return array
+  }
+
+
   class AudioPlayer {
     constructor (callback) {
       this.callback = callback
@@ -126,17 +140,27 @@
     // PUBLIC METHODS // PUBLIC METHODS // PUBLIC METHODS //
 
     setImage(options) {
-      this.options = options || {}
+      this.options = options
       this.verbs = options.verbs
 
       this.image.src = this.options.src
       this.image.removeAttribute("style")
-      this.canvasElement.removeAttribute("style")
+      this.image.removeAttribute("class")
 
-     this._setElement(this.canvasElement)
-     this.clicked = false
+      this.canvasElement.removeAttribute("style")
+      this.canvasElement.removeAttribute("class")
+
+      this._setElement(this.canvasElement)
+      this.clicked = false
 
       this.legend.innerHTML = this.options.phrase
+
+      let background = options.background
+      if (background) {
+        this.parentElement.style = "background-color:"+background+";"
+      } else {
+        this.parentElement.removeAttribute("style")
+      }
     }
 
 
@@ -222,7 +246,7 @@
       }
 
       if (this.clicked) {
-        this.parentElement.appendChild(this.legend)
+        this._showPhrase()
       }
     }
 
@@ -278,10 +302,9 @@
 
     _showCorrect() {
       this.parentElement.classList.add("correct")
-      // this.toggleAnimation({type: "mouseenter"})
 
       this.element.style = "width:" + this.width * 2 +"px;"
-                        + "height:" + this.height * 2 + "px;"
+                         + "height:" + this.height * 2 + "px;"
                          + "left:" + this.left * 2 + "px;"
                          // + "top:" + this.top * 2 + "px;"
                          + "position: relative;"
@@ -293,7 +316,11 @@
 
     _toggleGrayscale(toGray) {
       if (toGray) {
+        if (this.options.setToBlack) {
+          this.parentElement.removeAttribute("style")
+        }
         this.parentElement.classList.add("grayscale")
+
       } else {
         this.parentElement.classList.remove("grayscale")
       }
@@ -332,6 +359,7 @@
     _getQuestionMap(array) {
       let map = {}
 
+      shuffle(array)
       array.forEach(addToMap)
 
       return map
@@ -371,12 +399,12 @@
         let imageData
 
         while (!found) {
-          // Get the next image  daha for this verb...
+          // Get the next image data for this verb...
           imageData = imageSource.pop()
 
-          // ... and reinsert it more than halfway down the list
+          // ... and reinsert it less than halfway down the list
           let halfLength = Math.ceil(imageSource.length / 2)
-          let index = Math.floor(Math.random() * halfLength) + halfLength
+          let index = Math.floor(Math.random() * halfLength)
           // if imageSource.length is odd, index may be greater than
           // imageSource.length, in which case splice() will simply  
           // add imageData at the very end.
@@ -400,6 +428,14 @@
       for ( let ii = 0; ii < 4; ii += 1 ) {
         // Choose a verb that has not yet been chosen...
         let index = Math.floor(Math.random() * max)
+
+        // HACK to prevent the same cue verb appearing twice in a row
+        // The previously chosen verb will always have index === 1
+        if (!ii && index === 1) {
+          index = Math.floor(Math.random() * 4)
+          index = index ? index + 1 : index // 0 .. 2, 3, 4
+        }
+
         let verb = this.verbs.splice(index, 1)[0]
         // ... and return it to the end of the list so it won't be
         // chosen again
@@ -494,6 +530,8 @@
     , { "src": "img/walk/duck.gif"
       , "verbs": ["идти́"]
       , "phrase": "XXX"
+      , "background": "#43525a"
+      , "setToBlack": true
       , "audio": "audio/placeholder.mp3" // walk/duck.mp3"
       }
     , { "src": "img/walk/fassbender.gif"
@@ -514,6 +552,7 @@
     , { "src": "img/walk/pug.gif"
       , "verbs": ["идти́"]
       , "phrase": "XXX"
+      , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // walk/pug.mp3"
       }
     , { "src": "img/walk/robot.gif"
@@ -524,16 +563,19 @@
     , { "src": "img/walk/walk.gif"
       , "verbs": ["идти́"]
       , "phrase": "персонаж идет"
+      , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // walk/walk.mp3"
       }
     , { "src": "img/walk/walking.gif"
       , "verbs": ["идти́"]
       , "phrase": "XXX"
+      , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // walk/walking.mp3"
       }
     , { "src": "img/walk/woman.gif"
       , "verbs": ["идти́"]
       , "phrase": "женщина <span>идет</span>"
+      , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // walk/woman.mp3"
       }
 
@@ -576,6 +618,8 @@
     , { "src": "img/drive/skates.gif"
       , "verbs": ["е́хать"]
       , "phrase": "XXX"
+      , "background": "#aeddc4"
+      , "setToBlack": true
       , "audio": "audio/placeholder.mp3" // drive/skates.mp3"
       }
     , { "src": "img/drive/train.gif"
@@ -585,7 +629,7 @@
       }
     , { "src": "img/drive/trucks.gif"
       , "verbs": ["е́хать"]
-      , "phrase": "грузовики <span>едет</span>, человек <span>едет</span>"
+      , "phrase": "грузовики <span>едут</span>, человек <span>едет</span>"
       , "audio": "audio/placeholder.mp3" // drive/trucks.mp3"
       }
 
@@ -593,6 +637,8 @@
     , { "src": "img/run/batman.gif"
       , "verbs": ["бежа́ть"]
       , "phrase": "XXX"
+      , "background": "#ff9c0a"
+      , "setToBlack": true
       , "audio": "audio/placeholder.mp3" // run/batman.mp3"
       }    , { "src": "img/run/bird.gif"
       , "verbs": ["бежа́ть"]
@@ -607,6 +653,7 @@
     , { "src": "img/run/cat.gif"
       , "verbs": ["бежа́ть"]
       , "phrase": "XXX"
+      , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // run/cat.mp3"
       }
     , { "src": "img/run/chaplin.gif"
@@ -617,11 +664,14 @@
     , { "src": "img/run/daschund.gif"
       , "verbs": ["бежа́ть"]
       , "phrase": "XXX"
+      , "background": "#94bab4"
+      , "setToBlack": true
       , "audio": "audio/placeholder.mp3" // run/daschund.mp3"
       }
     , { "src": "img/run/dog.gif"
       , "verbs": ["бежа́ть"]
       , "phrase": "XXX"
+      , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // run/dog.mp3"
       }
     , { "src": "img/run/dogInPool.gif"
@@ -637,6 +687,8 @@
     , { "src": "img/run/runners.gif"
       , "verbs": ["бежа́ть"]
       , "phrase": "люди <span>бегут</span>"
+      , "background": "#b9e888"
+      , "setToBlack": true
       , "audio": "audio/placeholder.mp3" // run/runners.mp3"
       }
 
@@ -644,6 +696,7 @@
     , { "src": "img/fly/bat.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "XXX"
+      , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // fly/bat.mp3"
       }
     , { "src": "img/fly/butterfly.gif"
@@ -659,12 +712,8 @@
     , { "src": "img/fly/fly.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "XXX"
+      , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // fly/fly.mp3"
-      }
-    , { "src": "img/fly/FlyingFly.gif"
-      , "verbs": ["лете́ть"]
-      , "phrase": "XXX"
-      , "audio": "audio/placeholder.mp3" // fly/FlyingFly.mp3"
       }
     , { "src": "img/fly/frisbee.gif"
       , "verbs": ["лете́ть"]
@@ -674,11 +723,13 @@
     , { "src": "img/fly/hawk.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "XXX"
+      , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // fly/hawk.mp3"
       }
     , { "src": "img/fly/helicopter.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "XXX"
+      , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // fly/helicopter.mp3"
       }
     , { "src": "img/fly/jet-pack.gif"
@@ -686,10 +737,22 @@
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // fly/jet-pack.mp3"
       }
+    , { "src": "img/fly/kites.gif"
+      , "verbs": ["лете́ть"]
+      , "phrase": "XXX"
+      , "audio": "audio/placeholder.mp3" // fly/kites.mp3"
+      }
     , { "src": "img/fly/plane.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "самолет <span>летит</span>"
+      , "background": "#a9ebf1"
+      , "setToBlack": true
       , "audio": "audio/placeholder.mp3" // fly/plane.mp3"
+      }
+    , { "src": "img/fly/unicorn.gif"
+      , "verbs": ["лете́ть"]
+      , "phrase": "XXX"
+      , "audio": "audio/placeholder.mp3" // fly/unicorn.mp3"
       }
 
       // плыть
@@ -731,6 +794,7 @@
     , { "src": "img/swim/swim.gif"
       , "verbs": ["плыть"]
       , "phrase": "XXX"
+      , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // swim/swim.mp3"
       }
     , { "src": "img/swim/yacht.gif"
