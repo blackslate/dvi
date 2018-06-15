@@ -1,6 +1,10 @@
 "use strict"
 
-;(function customCode(window){
+;(function customCode(dvi){
+
+  if (!dvi) {
+    dvi = window.dvi = {}
+  }
 
   
   class Model {
@@ -402,7 +406,7 @@
   }
 
 
-  class DVI {
+  class Forms {
     constructor(questionArray) {
       let model = new Model(questionArray)
       this.controller = new Controller(model)
@@ -427,7 +431,7 @@
   }
   
   let questionArray = [
-      { "phrase": "Мы (плыть) &плывём& на льдине."
+    { "phrase": "Мы (плыть) &плывём& на льдине."
       , "id": "nuOA--rq7vE" 
       , "verbs": ["плыть"]
       , "pronouns": ["мы"]
@@ -604,6 +608,6 @@
       }
   ]
 
-  window.dvi = new DVI(questionArray)
+  dvi.forms = new Forms(questionArray)
 
-})(window)
+})(window.dvi)

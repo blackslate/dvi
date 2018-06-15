@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style>
+    body { 
+     background-color: #000;
+   }
+  </style> 
+
+
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    style="display: none;"
+    >
+  
+    <defs>
+      <path 
+        id="play"
+        d = "
+          M 50 2
+          a 48 48 0 0 0 0 96
+          a 48 48 0 0 0 0 -96
+          M 80 50
+          L 35 76
+          L 35 24
+          L 80 50    
+          "
+        stroke-width="4"
+        stroke="#fff"
+        stroke-linecap="round"
+        fill="#000"
+        opacity="0.25"
+      />
+    </defs>
+  </svg> 
+</head>
+
+<body>
+
+  <svg
+    viewBox="0 0 100 100"
+    width="50"
+    height="50"
+    >
+    <use xlink:href="#play" />
+  </svg>
+
+
+
+
+</body>
+</html>

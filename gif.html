@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  <title>Глаголы движения</title>
+
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/gif.css">
+
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    style="display: none;"
+    >
+  
+    <defs>
+      <path 
+        id="play"
+        d = "
+          M 50 2
+          a 48 48 0 0 0 0 96
+          a 48 48 0 0 0 0 -96
+          M 80 50
+          L 35 76
+          L 35 24
+          L 80 50    
+          "
+        stroke-width="4"
+        stroke="#fff"
+        stroke-linecap="round"
+        fill="#000"
+        opacity="0.25"
+      />
+    </defs>
+  </svg> 
+</head>
+
+<body>
+  <main>
+    <h1>Глаголы движения</h1>
+    <h3>Анастасия Антонова</h3>
+
+    <p class="cue"></p>
+    <div class="images">
+      <div class="top row">
+        <div class="left" ><!-- <img src="img/fly/bat.gif"> --></div>
+        <div class="right"><!-- <img src="img/walk/duck.gif"> --></div>
+      </div>
+      <div class="bottom row">
+        <div class="left" >
+          <!-- <img src="img/run/batman.gif">
+          <svg
+            viewBox="0 0 100 100"
+            width="50"
+            height="50"
+            >
+            <use xlink:href="#play" />
+          </svg> -->
+        </div>
+        <div class="right"><!-- <img src="img/swim/shark.gif"> --></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/gif.js"></script>
+</body>
+</html>
