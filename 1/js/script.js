@@ -316,6 +316,7 @@
 
 
     _showCorrect() {
+      this._startAnimation()
       this.parentElement.classList.add("correct")
 
       this.element.style = "width:" + this.width * 2 +"px;"
@@ -344,11 +345,6 @@
 
     _showPhrase() {
       this.parentElement.appendChild(this.legend)
-    }
-
-
-    _playAudio() {
-
     }
 
 
