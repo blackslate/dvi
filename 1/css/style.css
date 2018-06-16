@@ -4,11 +4,17 @@ body {
 
 
 p.cue {
-  text-align: center;
   font-size: 3em;
+  background-color: #eef;
   margin: 0.5em 0;
+  font-family: sans-serif;
+  }
+
+
+span.cue {
   background-color: #eef;
   font-family: sans-serif;
+
   cursor: pointer;
 }
 
@@ -59,9 +65,14 @@ svg {
   position: absolute;
   display:  block;;
   /* HACK TO CENTRE ABSOLUTE ELEMENT IN PARENT: USE HARDCODED SIZE*/
-  top: calc(50% - 25px);
+  /*top: calc(50% - 25px);*/
+  bottom: 0;
   left: calc(50% - 25px);
-  transform: translate(-25px -25px);
+}
+
+
+svg:hover {
+  opacity: 0;
 }
 
 
@@ -124,4 +135,23 @@ div.correct p {
 
 div.correct span {
   color: #0c0;
+}
+
+
+.fa {
+  font-size: 1.2em;
+  float: right;
+  cursor: pointer;
+}
+
+
+.fa.disabled {
+  opacity: 0.1;
+  cursor: default;
+}
+
+
+.fa.invisible {
+  visibility: hidden;
+  float: left;
 }

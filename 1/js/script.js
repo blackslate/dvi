@@ -115,8 +115,6 @@
 
       // p element for phrase
       this.legend = this._createLegend()
-
-      // this._setElement(this.canvasElement)
     }
 
 
@@ -147,8 +145,6 @@
       this._createStillImage()
       this._toggleGrayscale(false)
       this.parentElement.classList.remove("correct") //, "grayscale")
-
-      // this._setElement(this.image, true)
     }
 
     // PUBLIC METHODS // PUBLIC METHODS // PUBLIC METHODS //
@@ -181,8 +177,10 @@
     toggleAnimation(event) {
       if (this.clicked) {
         return
+      } else if (event.target.nodeName.toUpperCase() !== "SVG") {
+        return
       }
-
+    
       let animate = event && event.type === "mouseenter"
 
       if (animate) {
@@ -246,9 +244,12 @@
       this._empty()
       this.element = element
       this.parentElement.appendChild(element)
+      this.parentElement.appendChild(this.svg)
 
       if (!noPlayArrow) {
-        this.parentElement.appendChild(this.svg)
+        this.svg.classList.remove("invisible")
+      } else {
+        this.svg.classList.add("invisible")
       }
 
       if (element.nodeName === "IMG") {
@@ -489,7 +490,7 @@
       this.audio = new AudioPlayer(listener, regex)
       this.getNext = model.getNext.bind(model)
 
-      this.cueElement = document.querySelector("p.cue")
+      this.cueElement = document.querySelector("span.cue")
       this.cells = [].slice.call(document.querySelectorAll("div.cell"))
       this.cells.forEach(createCell)
 
@@ -611,26 +612,26 @@
       }
 
       // ехать
-    // , { "src": "img/drive/cyclist.gif"
-    //   , "verbs": ["е́хать"]
-    //   , "phrase": "XXX"
-    //   , "audio": "audio/placeholder.mp3" // drive/cyclist.mp3"
-    //   }
-    // , { "src": "img/drive/desertCar.gif"
-    //   , "verbs": ["е́хать"]
-    //   , "phrase": "XXX"
-    //   , "audio": "audio/placeholder.mp3" // drive/desertCar.mp3"
-    //   }
-    // , { "src": "img/drive/dogBike.gif"
-    //   , "verbs": ["е́хать"]
-    //   , "phrase": "XXX"
-    //   , "audio": "audio/placeholder.mp3" // drive/dogBike.mp3"
-    //   }
-    // , { "src": "img/drive/dogCart.gif"
-    //   , "verbs": ["е́хать"]
-    //   , "phrase": "XXX"
-    //   , "audio": "audio/placeholder.mp3" // drive/dogCart.mp3"
-    //   }
+    , { "src": "img/drive/cyclist.gif"
+      , "verbs": ["е́хать"]
+      , "phrase": "XXX"
+      , "audio": "audio/placeholder.mp3" // drive/cyclist.mp3"
+      }
+    , { "src": "img/drive/desertCar.gif"
+      , "verbs": ["е́хать"]
+      , "phrase": "XXX"
+      , "audio": "audio/placeholder.mp3" // drive/desertCar.mp3"
+      }
+    , { "src": "img/drive/dogBike.gif"
+      , "verbs": ["е́хать"]
+      , "phrase": "XXX"
+      , "audio": "audio/placeholder.mp3" // drive/dogBike.mp3"
+      }
+    , { "src": "img/drive/dogCart.gif"
+      , "verbs": ["е́хать"]
+      , "phrase": "XXX"
+      , "audio": "audio/placeholder.mp3" // drive/dogCart.mp3"
+      }
     , { "src": "img/drive/horse.gif"
       , "verbs": ["е́хать", "бежа́ть"] // also бежа́ть
       , "phrase": "XXX"
@@ -641,28 +642,28 @@
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // drive/metro.mp3"
       }
-    // , { "src": "img/drive/skateboard.gif"
-    //   , "verbs": ["е́хать"]
-    //   , "phrase": "XXX"
-    //   , "audio": "audio/placeholder.mp3" // drive/skateboard.mp3"
-    //   }
-    // , { "src": "img/drive/skates.gif"
-    //   , "verbs": ["е́хать"]
-    //   , "phrase": "XXX"
-    //   , "background": "#aeddc4"
-    //   , "setToBlack": true
-    //   , "audio": "audio/placeholder.mp3" // drive/skates.mp3"
-    //   }
-    // , { "src": "img/drive/train.gif"
-    //   , "verbs": ["е́хать"]
-    //   , "phrase": "XXX"
-    //   , "audio": "audio/placeholder.mp3" // drive/train.mp3"
-    //   }
-    // , { "src": "img/drive/trucks.gif"
-    //   , "verbs": ["е́хать"]
-    //   , "phrase": "грузовики <span>едут</span>, человек <span>едет</span>"
-    //   , "audio": "audio/placeholder.mp3" // drive/trucks.mp3"
-    //   }
+    , { "src": "img/drive/skateboard.gif"
+      , "verbs": ["е́хать"]
+      , "phrase": "XXX"
+      , "audio": "audio/placeholder.mp3" // drive/skateboard.mp3"
+      }
+    , { "src": "img/drive/skates.gif"
+      , "verbs": ["е́хать"]
+      , "phrase": "XXX"
+      , "background": "#aeddc4"
+      , "setToBlack": true
+      , "audio": "audio/placeholder.mp3" // drive/skates.mp3"
+      }
+    , { "src": "img/drive/train.gif"
+      , "verbs": ["е́хать"]
+      , "phrase": "XXX"
+      , "audio": "audio/placeholder.mp3" // drive/train.mp3"
+      }
+    , { "src": "img/drive/trucks.gif"
+      , "verbs": ["е́хать"]
+      , "phrase": "грузовики <span>едут</span>, человек <span>едет</span>"
+      , "audio": "audio/placeholder.mp3" // drive/trucks.mp3"
+      }
 
       // бежать
     , { "src": "img/run/batman.gif"
