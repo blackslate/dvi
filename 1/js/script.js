@@ -399,7 +399,7 @@
       return map
 
       function addToMap(imageData) {
-        // { "src": "img/walk/duck.gif"
+        // { "src": "../shared/img/walk/duck.gif"
         // , "verbs": ["идти́"]
         // , "phrase": "XXX"
         // , "audio": "audio/walk/duck.mp3"
@@ -610,57 +610,57 @@
 
 
   let questionArray = [
-    { "src": "img/walk/dog.gif"
+    { "src": "../shared/img/walk/dog.gif"
       , "verbs": ["идти́"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // walk/dog.mp3"
       }
-    , { "src": "img/walk/duck.gif"
+    , { "src": "../shared/img/walk/duck.gif"
       , "verbs": ["идти́"]
       , "phrase": "XXX"
       , "background": "#43525a"
       , "setToBlack": true
       , "audio": "audio/placeholder.mp3" // walk/duck.mp3"
       }
-    , { "src": "img/walk/fassbender.gif"
+    , { "src": "../shared/img/walk/fassbender.gif"
       , "verbs": ["идти́"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // walk/fassbender.mp3"
       }
-    , { "src": "img/walk/flamingos.gif"
+    , { "src": "../shared/img/walk/flamingos.gif"
       , "verbs": ["идти́"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // walk/flamingos.mp3"
       }
-    , { "src": "img/walk/penguin.gif"
+    , { "src": "../shared/img/walk/penguin.gif"
       , "verbs": ["идти́"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // walk/penguin.mp3"
       }
-    , { "src": "img/walk/pug.gif"
+    , { "src": "../shared/img/walk/pug.gif"
       , "verbs": ["идти́"]
       , "phrase": "XXX"
       , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // walk/pug.mp3"
       }
-    , { "src": "img/walk/robot.gif"
+    , { "src": "../shared/img/walk/robot.gif"
       , "verbs": ["идти́"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // walk/robot.mp3"
       }
-    , { "src": "img/walk/walk.gif"
+    , { "src": "../shared/img/walk/walk.gif"
       , "verbs": ["идти́"]
       , "phrase": "персонаж идет"
       , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // walk/walk.mp3"
       }
-    , { "src": "img/walk/walking.gif"
+    , { "src": "../shared/img/walk/walking.gif"
       , "verbs": ["идти́"]
       , "phrase": "XXX"
       , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // walk/walking.mp3"
       }
-    , { "src": "img/walk/woman.gif"
+    , { "src": "../shared/img/walk/woman.gif"
       , "verbs": ["идти́"]
       , "phrase": "женщина <span>идет</span>"
       , "background": "#fff"
@@ -668,111 +668,111 @@
       }
 
       // ехать
-    , { "src": "img/drive/cyclist.gif"
+    , { "src": "../shared/img/drive/cyclist.gif"
       , "verbs": ["е́хать"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // drive/cyclist.mp3"
       }
-    , { "src": "img/drive/desertCar.gif"
+    , { "src": "../shared/img/drive/desertCar.gif"
       , "verbs": ["е́хать"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // drive/desertCar.mp3"
       }
-    , { "src": "img/drive/dogBike.gif"
+    , { "src": "../shared/img/drive/dogBike.gif"
       , "verbs": ["е́хать"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // drive/dogBike.mp3"
       }
-    , { "src": "img/drive/dogCart.gif"
+    , { "src": "../shared/img/drive/dogCart.gif"
       , "verbs": ["е́хать"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // drive/dogCart.mp3"
       }
-    , { "src": "img/drive/horse.gif"
+    , { "src": "../shared/img/drive/horse.gif"
       , "verbs": ["е́хать", "бежа́ть"] // also бежа́ть
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // drive/horse.mp3"
       }
-    , { "src": "img/drive/metro.gif"
+    , { "src": "../shared/img/drive/metro.gif"
       , "verbs": ["е́хать"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // drive/metro.mp3"
       }
-    , { "src": "img/drive/skateboard.gif"
+    , { "src": "../shared/img/drive/skateboard.gif"
       , "verbs": ["е́хать"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // drive/skateboard.mp3"
       }
-    , { "src": "img/drive/skates.gif"
+    , { "src": "../shared/img/drive/skates.gif"
       , "verbs": ["е́хать"]
       , "phrase": "XXX"
       , "background": "#aeddc4"
       , "setToBlack": true
       , "audio": "audio/placeholder.mp3" // drive/skates.mp3"
       }
-    , { "src": "img/drive/train.gif"
+    , { "src": "../shared/img/drive/train.gif"
       , "verbs": ["е́хать"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // drive/train.mp3"
       }
-    , { "src": "img/drive/trucks.gif"
+    , { "src": "../shared/img/drive/trucks.gif"
       , "verbs": ["е́хать"]
       , "phrase": "грузовики <span>едут</span>, человек <span>едет</span>"
       , "audio": "audio/placeholder.mp3" // drive/trucks.mp3"
       }
 
       // бежать
-    , { "src": "img/run/batman.gif"
+    , { "src": "../shared/img/run/batman.gif"
       , "verbs": ["бежа́ть"]
       , "phrase": "XXX"
       , "background": "#ff9c0a"
       , "setToBlack": true
       , "audio": "audio/placeholder.mp3" // run/batman.mp3"
-      }    , { "src": "img/run/bird.gif"
+      }    , { "src": "../shared/img/run/bird.gif"
       , "verbs": ["бежа́ть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // run/bird.mp3"
       }
-    , { "src": "img/run/cartoon.gif"
+    , { "src": "../shared/img/run/cartoon.gif"
       , "verbs": ["бежа́ть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // run/cartoon.mp3"
       }
-    , { "src": "img/run/cat.gif"
+    , { "src": "../shared/img/run/cat.gif"
       , "verbs": ["бежа́ть"]
       , "phrase": "XXX"
       , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // run/cat.mp3"
       }
-    , { "src": "img/run/chaplin.gif"
+    , { "src": "../shared/img/run/chaplin.gif"
       , "verbs": ["бежа́ть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // run/chaplin.mp3"
       }
-    , { "src": "img/run/daschund.gif"
+    , { "src": "../shared/img/run/daschund.gif"
       , "verbs": ["бежа́ть"]
       , "phrase": "XXX"
       , "background": "#94bab4"
       , "setToBlack": true
       , "audio": "audio/placeholder.mp3" // run/daschund.mp3"
       }
-    , { "src": "img/run/dog.gif"
+    , { "src": "../shared/img/run/dog.gif"
       , "verbs": ["бежа́ть"]
       , "phrase": "XXX"
       , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // run/dog.mp3"
       }
-    , { "src": "img/run/dogInPool.gif"
+    , { "src": "../shared/img/run/dogInPool.gif"
       , "verbs": ["бежа́ть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // run/dogInPool.mp3"
       }
-    , { "src": "img/run/jesus.gif"
+    , { "src": "../shared/img/run/jesus.gif"
       , "verbs": ["бежа́ть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // run/jesus.mp3"
       }
-    , { "src": "img/run/runners.gif"
+    , { "src": "../shared/img/run/runners.gif"
       , "verbs": ["бежа́ть"]
       , "phrase": "люди <span>бегут</span>"
       , "background": "#b9e888"
@@ -781,116 +781,116 @@
       }
 
       // лететь
-    , { "src": "img/fly/bat.gif"
+    , { "src": "../shared/img/fly/bat.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "XXX"
       , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // fly/bat.mp3"
       }
-    , { "src": "img/fly/butterfly.gif"
+    , { "src": "../shared/img/fly/butterfly.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // fly/butterfly.mp3"
       }
-    , { "src": "img/fly/calvin.gif"
+    , { "src": "../shared/img/fly/calvin.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // fly/calvin.mp3"
       }
-    , { "src": "img/fly/fly.gif"
+    , { "src": "../shared/img/fly/fly.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "XXX"
       , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // fly/fly.mp3"
       }
-    , { "src": "img/fly/frisbee.gif"
+    , { "src": "../shared/img/fly/frisbee.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // fly/frisbee.mp3"
       }
-    , { "src": "img/fly/hawk.gif"
+    , { "src": "../shared/img/fly/hawk.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "XXX"
       , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // fly/hawk.mp3"
       }
-    , { "src": "img/fly/helicopter.gif"
+    , { "src": "../shared/img/fly/helicopter.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "XXX"
       , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // fly/helicopter.mp3"
       }
-    , { "src": "img/fly/jet-pack.gif"
+    , { "src": "../shared/img/fly/jet-pack.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // fly/jet-pack.mp3"
       }
-    , { "src": "img/fly/kites.gif"
+    , { "src": "../shared/img/fly/kites.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // fly/kites.mp3"
       }
-    , { "src": "img/fly/plane.gif"
+    , { "src": "../shared/img/fly/plane.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "самолет <span>летит</span>"
       , "background": "#a9ebf1"
       , "setToBlack": true
       , "audio": "audio/placeholder.mp3" // fly/plane.mp3"
       }
-    , { "src": "img/fly/unicorn.gif"
+    , { "src": "../shared/img/fly/unicorn.gif"
       , "verbs": ["лете́ть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // fly/unicorn.mp3"
       }
 
       // плыть
-    , { "src": "img/swim/frigate.gif"
+    , { "src": "../shared/img/swim/frigate.gif"
       , "verbs": ["плыть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // swim/frigate.mp3"
       }
-    // , { "src": "img/swim/hands.gif"
+    // , { "src": "../shared/img/swim/hands.gif"
     //   , "verbs": ["плыть"]
     //   , "phrase": "XXX"
     //   , "audio": "audio/placeholder.mp3" // swim/hands.mp3"
     //   }
-    , { "src": "img/swim/mermaid.gif"
+    , { "src": "../shared/img/swim/mermaid.gif"
       , "verbs": ["плыть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // swim/mermaid.mp3"
       }
-    , { "src": "img/swim/nouille.gif"
+    , { "src": "../shared/img/swim/nouille.gif"
       , "verbs": ["плыть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // swim/nouille.mp3"
       }
-    , { "src": "img/swim/shark.gif"
+    , { "src": "../shared/img/swim/shark.gif"
       , "verbs": ["плыть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // swim/shark.mp3"
       }
-    , { "src": "img/swim/speedboat.gif"
+    , { "src": "../shared/img/swim/speedboat.gif"
       , "verbs": ["плыть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // swim/speedboat.mp3"
       }
-    , { "src": "img/swim/submarine.gif"
+    , { "src": "../shared/img/swim/submarine.gif"
       , "verbs": ["плыть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // swim/submarine.mp3"
       }
-    , { "src": "img/swim/swim.gif"
+    , { "src": "../shared/img/swim/swim.gif"
       , "verbs": ["плыть"]
       , "phrase": "XXX"
       , "background": "#fff"
       , "audio": "audio/placeholder.mp3" // swim/swim.mp3"
       }
-    , { "src": "img/swim/yacht.gif"
+    , { "src": "../shared/img/swim/yacht.gif"
       , "verbs": ["плыть"]
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // swim/yacht.mp3"
       }
-    , { "src": "img/swim/yellowfish.gif"
+    , { "src": "../shared/img/swim/yellowfish.gif"
       , "verbs": ["плыть"]
       , "phrase": "рыба <span>плывет</span>"
       , "audio": "audio/placeholder.mp3" // swim/yellowfish.mp3"

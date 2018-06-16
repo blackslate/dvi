@@ -128,162 +128,162 @@
 
 
   let questionArray = [
-    { "src": "img/walk/dog.gif"
+    { "src": "../shared/img/walk/dog.gif"
       , "verb": "идти́"
       }
-    , { "src": "img/walk/duck.gif"
+    , { "src": "../shared/img/walk/duck.gif"
       , "verb": "идти́"
       }
-    , { "src": "img/walk/fassbender.gif"
+    , { "src": "../shared/img/walk/fassbender.gif"
       , "verb": "идти́"
       }
-    , { "src": "img/walk/flamingos.gif"
+    , { "src": "../shared/img/walk/flamingos.gif"
       , "verb": "идти́"
       }
-    , { "src": "img/walk/penguin.gif"
+    , { "src": "../shared/img/walk/penguin.gif"
       , "verb": "идти́"
       }
-    , { "src": "img/walk/pug.gif"
+    , { "src": "../shared/img/walk/pug.gif"
       , "verb": "идти́"
       }
-    , { "src": "img/walk/robot.gif"
+    , { "src": "../shared/img/walk/robot.gif"
       , "verb": "идти́"
       }
-    , { "src": "img/walk/walk.gif"
+    , { "src": "../shared/img/walk/walk.gif"
       , "verb": "идти́"
       }
-    , { "src": "img/walk/walking.gif"
+    , { "src": "../shared/img/walk/walking.gif"
       , "verb": "идти́"
       }
-    , { "src": "img/walk/woman.gif"
+    , { "src": "../shared/img/walk/woman.gif"
       , "verb": "идти́"
       }
 
       // ехать
-    , { "src": "img/drive/cyclist.gif"
+    , { "src": "../shared/img/drive/cyclist.gif"
       , "verb": "е́хать"
       }
-    , { "src": "img/drive/desertCar.gif"
+    , { "src": "../shared/img/drive/desertCar.gif"
       , "verb": "е́хать"
       }
-    , { "src": "img/drive/dogBike.gif"
+    , { "src": "../shared/img/drive/dogBike.gif"
       , "verb": "е́хать"
       }
-    , { "src": "img/drive/dogCart.gif"
+    , { "src": "../shared/img/drive/dogCart.gif"
       , "verb": "е́хать"
       }
-    , { "src": "img/drive/horse.gif"
+    , { "src": "../shared/img/drive/horse.gif"
       , "verb": "е́хать"
       }
-    , { "src": "img/drive/metro.gif"
+    , { "src": "../shared/img/drive/metro.gif"
       , "verb": "е́хать"
       }
-    , { "src": "img/drive/skateboard.gif"
+    , { "src": "../shared/img/drive/skateboard.gif"
       , "verb": "е́хать"
       }
-    , { "src": "img/drive/skates.gif"
+    , { "src": "../shared/img/drive/skates.gif"
       , "verb": "е́хать"
       }
-    , { "src": "img/drive/train.gif"
+    , { "src": "../shared/img/drive/train.gif"
       , "verb": "е́хать"
       }
-    , { "src": "img/drive/trucks.gif"
+    , { "src": "../shared/img/drive/trucks.gif"
       , "verb": "е́хать"
       }
 
       // бежать
-    , { "src": "img/run/bird.gif"
+    , { "src": "../shared/img/run/bird.gif"
       , "verb": "бежа́ть"
       }
-    , { "src": "img/run/cartoon.gif"
+    , { "src": "../shared/img/run/cartoon.gif"
       , "verb": "бежа́ть"
       }
-    , { "src": "img/run/cat.gif"
+    , { "src": "../shared/img/run/cat.gif"
       , "verb": "бежа́ть"
       }
-    , { "src": "img/run/chaplin.gif"
+    , { "src": "../shared/img/run/chaplin.gif"
       , "verb": "бежа́ть"
       }
-    , { "src": "img/run/daschund.gif"
+    , { "src": "../shared/img/run/daschund.gif"
       , "verb": "бежа́ть"
       }
-    , { "src": "img/run/dog.gif"
+    , { "src": "../shared/img/run/dog.gif"
       , "verb": "бежа́ть"
       }
-    , { "src": "img/run/dogInPool.gif"
+    , { "src": "../shared/img/run/dogInPool.gif"
       , "verb": "бежа́ть"
       }
-    , { "src": "img/run/jesus.gif"
+    , { "src": "../shared/img/run/jesus.gif"
       , "verb": "бежа́ть"
       }
-    , { "src": "img/run/run.gif"
+    , { "src": "../shared/img/run/run.gif"
       , "verb": "бежа́ть"
       }
-    , { "src": "img/run/runners.gif"
+    , { "src": "../shared/img/run/runners.gif"
       , "verb": "бежа́ть"
       }
 
       // лететь
-    , { "src": "img/fly/bat.gif"
+    , { "src": "../shared/img/fly/bat.gif"
       , "verb": "лете́ть"
       }
-    , { "src": "img/fly/butterfly.gif"
+    , { "src": "../shared/img/fly/butterfly.gif"
       , "verb": "лете́ть"
       }
-    , { "src": "img/fly/calvin.gif"
+    , { "src": "../shared/img/fly/calvin.gif"
       , "verb": "лете́ть"
       }
-    , { "src": "img/fly/fly.gif"
+    , { "src": "../shared/img/fly/fly.gif"
       , "verb": "лете́ть"
       }
-    , { "src": "img/fly/FlyingFly.gif"
+    , { "src": "../shared/img/fly/FlyingFly.gif"
       , "verb": "лете́ть"
       }
-    , { "src": "img/fly/frisbee.gif"
+    , { "src": "../shared/img/fly/frisbee.gif"
       , "verb": "лете́ть"
       }
-    , { "src": "img/fly/hawk.gif"
+    , { "src": "../shared/img/fly/hawk.gif"
       , "verb": "лете́ть"
       }
-    , { "src": "img/fly/helicopter.gif"
+    , { "src": "../shared/img/fly/helicopter.gif"
       , "verb": "лете́ть"
       }
-    , { "src": "img/fly/jet-pack.gif"
+    , { "src": "../shared/img/fly/jet-pack.gif"
       , "verb": "лете́ть"
       }
-    , { "src": "img/fly/plane.gif"
+    , { "src": "../shared/img/fly/plane.gif"
       , "verb": "лете́ть"
       }
 
       // плыть
-    , { "src": "img/swim/frigate.gif"
+    , { "src": "../shared/img/swim/frigate.gif"
       , "verb": "плыть"
       }
-    , { "src": "img/swim/hands.gif"
+    , { "src": "../shared/img/swim/hands.gif"
       , "verb": "плыть"
       }
-    , { "src": "img/swim/mermaid.gif"
+    , { "src": "../shared/img/swim/mermaid.gif"
       , "verb": "плыть"
       }
-    , { "src": "img/swim/nouille.gif"
+    , { "src": "../shared/img/swim/nouille.gif"
       , "verb": "плыть"
       }
-    , { "src": "img/swim/shark.gif"
+    , { "src": "../shared/img/swim/shark.gif"
       , "verb": "плыть"
       }
-    , { "src": "img/swim/speedboat.gif"
+    , { "src": "../shared/img/swim/speedboat.gif"
       , "verb": "плыть"
       }
-    , { "src": "img/swim/submarine.gif"
+    , { "src": "../shared/img/swim/submarine.gif"
       , "verb": "плыть"
       }
-    , { "src": "img/swim/swim.gif"
+    , { "src": "../shared/img/swim/swim.gif"
       , "verb": "плыть"
       }
-    , { "src": "img/swim/yacht.gif"
+    , { "src": "../shared/img/swim/yacht.gif"
       , "verb": "плыть"
       }
-    , { "src": "img/swim/yellowfish.gif"
+    , { "src": "../shared/img/swim/yellowfish.gif"
       , "verb": "плыть"
       }
   ]
