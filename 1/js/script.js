@@ -65,7 +65,7 @@
 
     _audioEnded (event) {
       let src = decodeURI(event.target.src.match(this.regex)[0])
-      console.log(src)
+      // console.log(src)
 
       if (this.noCallbackArray.indexOf(src) < 0) {
         this.callback("next")
@@ -425,13 +425,15 @@
           imageSource.splice(index, 0, imageData)
 
           // Check that the image does not (also) illustrate the cue
-          // verb
-          // 
+          // verb, and that it has not already been chosen
+
           if (!cue) {
             cue = verb
             found = true
-          } else if (imageData.verbs.indexOf(cue) < 0) {
-            found = true
+          } else if (imageData.verbs.indexOf(cue) < 0) { // not cue
+            if (pool.indexOf(imageData) < 0) { // not already chosen
+              found = true
+            }
           }
         }
 
@@ -609,26 +611,26 @@
       }
 
       // ехать
-    , { "src": "img/drive/cyclist.gif"
-      , "verbs": ["е́хать"]
-      , "phrase": "XXX"
-      , "audio": "audio/placeholder.mp3" // drive/cyclist.mp3"
-      }
-    , { "src": "img/drive/desertCar.gif"
-      , "verbs": ["е́хать"]
-      , "phrase": "XXX"
-      , "audio": "audio/placeholder.mp3" // drive/desertCar.mp3"
-      }
-    , { "src": "img/drive/dogBike.gif"
-      , "verbs": ["е́хать"]
-      , "phrase": "XXX"
-      , "audio": "audio/placeholder.mp3" // drive/dogBike.mp3"
-      }
-    , { "src": "img/drive/dogCart.gif"
-      , "verbs": ["е́хать"]
-      , "phrase": "XXX"
-      , "audio": "audio/placeholder.mp3" // drive/dogCart.mp3"
-      }
+    // , { "src": "img/drive/cyclist.gif"
+    //   , "verbs": ["е́хать"]
+    //   , "phrase": "XXX"
+    //   , "audio": "audio/placeholder.mp3" // drive/cyclist.mp3"
+    //   }
+    // , { "src": "img/drive/desertCar.gif"
+    //   , "verbs": ["е́хать"]
+    //   , "phrase": "XXX"
+    //   , "audio": "audio/placeholder.mp3" // drive/desertCar.mp3"
+    //   }
+    // , { "src": "img/drive/dogBike.gif"
+    //   , "verbs": ["е́хать"]
+    //   , "phrase": "XXX"
+    //   , "audio": "audio/placeholder.mp3" // drive/dogBike.mp3"
+    //   }
+    // , { "src": "img/drive/dogCart.gif"
+    //   , "verbs": ["е́хать"]
+    //   , "phrase": "XXX"
+    //   , "audio": "audio/placeholder.mp3" // drive/dogCart.mp3"
+    //   }
     , { "src": "img/drive/horse.gif"
       , "verbs": ["е́хать", "бежа́ть"] // also бежа́ть
       , "phrase": "XXX"
@@ -639,28 +641,28 @@
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // drive/metro.mp3"
       }
-    , { "src": "img/drive/skateboard.gif"
-      , "verbs": ["е́хать"]
-      , "phrase": "XXX"
-      , "audio": "audio/placeholder.mp3" // drive/skateboard.mp3"
-      }
-    , { "src": "img/drive/skates.gif"
-      , "verbs": ["е́хать"]
-      , "phrase": "XXX"
-      , "background": "#aeddc4"
-      , "setToBlack": true
-      , "audio": "audio/placeholder.mp3" // drive/skates.mp3"
-      }
-    , { "src": "img/drive/train.gif"
-      , "verbs": ["е́хать"]
-      , "phrase": "XXX"
-      , "audio": "audio/placeholder.mp3" // drive/train.mp3"
-      }
-    , { "src": "img/drive/trucks.gif"
-      , "verbs": ["е́хать"]
-      , "phrase": "грузовики <span>едут</span>, человек <span>едет</span>"
-      , "audio": "audio/placeholder.mp3" // drive/trucks.mp3"
-      }
+    // , { "src": "img/drive/skateboard.gif"
+    //   , "verbs": ["е́хать"]
+    //   , "phrase": "XXX"
+    //   , "audio": "audio/placeholder.mp3" // drive/skateboard.mp3"
+    //   }
+    // , { "src": "img/drive/skates.gif"
+    //   , "verbs": ["е́хать"]
+    //   , "phrase": "XXX"
+    //   , "background": "#aeddc4"
+    //   , "setToBlack": true
+    //   , "audio": "audio/placeholder.mp3" // drive/skates.mp3"
+    //   }
+    // , { "src": "img/drive/train.gif"
+    //   , "verbs": ["е́хать"]
+    //   , "phrase": "XXX"
+    //   , "audio": "audio/placeholder.mp3" // drive/train.mp3"
+    //   }
+    // , { "src": "img/drive/trucks.gif"
+    //   , "verbs": ["е́хать"]
+    //   , "phrase": "грузовики <span>едут</span>, человек <span>едет</span>"
+    //   , "audio": "audio/placeholder.mp3" // drive/trucks.mp3"
+    //   }
 
       // бежать
     , { "src": "img/run/batman.gif"
