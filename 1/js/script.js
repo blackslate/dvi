@@ -39,16 +39,28 @@
     }
 
 
-    play(src, noCallback) {
-      if (noCallback) {
-        if (this.noCallbackArray.indexOf(src) < 0) {
-          this.noCallbackArray.push(src)
-        }
+    play(src, options = {}) {
+      // this.noCallback = !!noCallback
+      switch (options.callback) {
+        case "never":
+          if (this.noCallbackArray.indexOf(src) < 0) {
+            this.noCallbackArray.push(src)
+          }
+        break
+        case false:
+          this.noCallback = true
       }
 
       this.audio.src = src
       // console.log("play", src)
       // this.audio.play()
+    }
+
+
+    stop() {
+      this.audio.pause()
+      this.audio.currentTime = 0
+      this.audio.src = ""
     }
 
 
@@ -64,12 +76,16 @@
 
 
     _audioEnded (event) {
-      let src = decodeURI(event.target.src.match(this.regex)[0])
-      // console.log(src)
+      if (!this.noCallback) {
+        let src = decodeURI(event.target.src.match(this.regex)[0])
+        this.noCallback = !(this.noCallbackArray.indexOf(src) < 0)
+      }
 
-      if (this.noCallbackArray.indexOf(src) < 0) {
+      if (!this.noCallback) {
         this.callback("next")
       }
+
+      this.noCallback = false
     }
   }
 
@@ -115,6 +131,8 @@
 
       // p element for phrase
       this.legend = this._createLegend()
+      listener = this.playLegend.bind(this)
+      this.legend.addEventListener("mouseup", listener, true)
     }
 
 
@@ -147,6 +165,11 @@
       this.parentElement.classList.remove("correct") //, "grayscale")
     }
 
+
+    playLegend(event) {
+      this.callback("play", this.options.audio)
+    }
+
     // PUBLIC METHODS // PUBLIC METHODS // PUBLIC METHODS //
 
     setImage(options) {
@@ -160,8 +183,8 @@
       this.canvasElement.removeAttribute("style")
       this.canvasElement.removeAttribute("class")
 
-      this._setElement(this.canvasElement)
       this.clicked = false
+      this._setElement(this.canvasElement)
 
       this.legend.innerHTML = this.options.phrase
 
@@ -326,7 +349,7 @@
                          + "position: relative;"
       this._showPhrase()
 
-      this.callback("play", this.options.audio)
+      this.callback("reward", this.options.audio)
     }
 
 
@@ -490,8 +513,18 @@
       this.cells = [].slice.call(document.querySelectorAll("div.cell"))
       this.cells.forEach(createCell)
 
-      listener = this._playCue.bind(this)
+      listener = this.playCue.bind(this)
       this.cueElement.addEventListener("mouseup", listener, true)
+
+      this.auto = false
+      this.checkbox = document.querySelector("input")
+      let element = document.querySelector("div.checkbox")
+      listener = this.toggleAuto.bind(this)
+      element.addEventListener("change", listener, true)
+
+      this.manual = document.querySelector("i.manual")
+      listener = this.nextItem.bind(this)
+      this.manual.addEventListener("mouseup", listener, true)
 
       this.nextItem()
     }
@@ -505,7 +538,13 @@
           return !wrong
 
         case "play":
-          return this.audio.play(item)
+          this.audio.play(item, { callback: false })
+        break
+
+        case "reward":
+          this.audio.play(item, { callback: this.auto })
+          this.toggleNext(true)
+        break
 
         case "next":
           this.nextItem()
@@ -514,6 +553,7 @@
 
 
     nextItem() {
+      this.audio.stop()
       let pool = this.getNext()
 
       this.cue = pool.cue
@@ -522,20 +562,40 @@
       pool.forEach(_displayImage)
       this.cueElement.innerText = this.cue
 
-      this._playCue()
+      this.toggleNext(false)
+      this.playCue()
+    }
+
+
+    playCue() {
+      let fileName = this.cue.replace("́", "")
+      let audioPath = this.audioFolder + fileName + ".mp3"
+      this.audio.play(audioPath, { callback: "never" })
+    }
+
+
+    toggleAuto() {
+      let auto = this.auto = this.checkbox.checked
+      if (auto) {
+        this.manual.classList.add("active")
+      } else {
+        this.manual.classList.remove("active") 
+      }
+    }
+
+
+    toggleNext(enabled) {
+      if (enabled) {
+        this.manual.classList.remove("disabled")
+      } else {
+        this.manual.classList.add("disabled")
+      }
     }
 
 
     _displayImage(imageData, index) {
       let cell = this.cells[index]
       cell.setImage(imageData)
-    }
-
-
-    _playCue() {
-      let fileName = this.cue.replace("́", "")
-      let audioPath = this.audioFolder + fileName + ".mp3"
-      this.audio.play(audioPath, "noCallback")
     }
   }
 

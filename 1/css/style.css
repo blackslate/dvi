@@ -6,7 +6,7 @@ body {
 p.cue {
   font-size: 3em;
   background-color: #eef;
-  margin: 0.5em 0;
+  margin: 0.25em 0 0;
   font-family: sans-serif;
   }
 
@@ -78,7 +78,7 @@ svg:hover {
 
 p.legend {
   position: absolute;
-  bottom: 0;
+  top: 0;
   width: 100%;
   margin: 0;
   font-size: 1.5em;
@@ -141,12 +141,17 @@ div.correct span {
 .fa {
   font-size: 1.2em;
   float: right;
+  color: #aad;
+}
+
+
+.fa.active {
   cursor: pointer;
 }
 
 
 .fa.disabled {
-  opacity: 0.1;
+  opacity: 0.2;
   cursor: default;
 }
 
@@ -154,4 +159,29 @@ div.correct span {
 .fa.invisible {
   visibility: hidden;
   float: left;
+}
+
+
+div.checkbox {
+  position: relative;
+  font-size: 1.25em;
+  height: 1.25em;
+}
+
+
+input {
+  position: absolute;
+  right: 3em;
+  top: 0.4em;
+  -ms-transform: scale(1.25); /* IE */
+  -moz-transform: scale(1.25); /* FF */
+  -webkit-transform: scale(1.25); /* Safari and Chrome */
+  -o-transform: scale(1.25); /* Opera */
+  /*padding: 10px;*/
+}
+
+
+label {
+  position: absolute;
+  right: 0;
 }
