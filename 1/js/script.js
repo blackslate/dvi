@@ -22,8 +22,9 @@
 
 
   class AudioPlayer {
-    constructor (callback) {
+    constructor (callback, regex) {
       this.callback = callback
+      this.regex = regex
       this.audio = new Audio()
 
       let listener = this._audioLoaded.bind(this)
@@ -31,12 +32,20 @@
       this.audio.addEventListener("error", listener, true)
       this.audio.onerror = listener
 
+      this.noCallbackArray = []
+
       listener = this._audioEnded.bind(this)
       this.audio.onended = listener
     }
 
 
-    play(src) {
+    play(src, noCallback) {
+      if (noCallback) {
+        if (this.noCallbackArray.indexOf(src) < 0) {
+          this.noCallbackArray.push(src)
+        }
+      }
+
       this.audio.src = src
       // console.log("play", src)
       // this.audio.play()
@@ -54,8 +63,13 @@
     } 
 
 
-    _audioEnded () {
-      this.callback("next")
+    _audioEnded (event) {
+      let src = decodeURI(event.target.src.match(this.regex)[0])
+      console.log(src)
+
+      if (this.noCallbackArray.indexOf(src) < 0) {
+        this.callback("next")
+      }
     }
   }
 
@@ -467,12 +481,18 @@
         this.cells[index] = new Cell(cellElement, listener)
       }
 
-      this.audio = new AudioPlayer(listener)
+      let regex = /audio\/[^.]+.mp3/
+      this.audioFolder = "audio/"
+
+      this.audio = new AudioPlayer(listener, regex)
       this.getNext = model.getNext.bind(model)
 
       this.cueElement = document.querySelector("p.cue")
       this.cells = [].slice.call(document.querySelectorAll("div.cell"))
       this.cells.forEach(createCell)
+
+      listener = this._playCue.bind(this)
+      this.cueElement.addEventListener("mouseup", listener, true)
 
       this.nextItem()
     }
@@ -502,12 +522,21 @@
 
       pool.forEach(_displayImage)
       this.cueElement.innerText = this.cue
+
+      this._playCue()
     }
 
 
     _displayImage(imageData, index) {
       let cell = this.cells[index]
       cell.setImage(imageData)
+    }
+
+
+    _playCue() {
+      let fileName = this.cue.replace("́", "")
+      let audioPath = this.audioFolder + fileName + ".mp3"
+      this.audio.play(audioPath, "noCallback")
     }
   }
 
@@ -761,11 +790,11 @@
       , "phrase": "XXX"
       , "audio": "audio/placeholder.mp3" // swim/frigate.mp3"
       }
-    , { "src": "img/swim/hands.gif"
-      , "verbs": ["плыть"]
-      , "phrase": "XXX"
-      , "audio": "audio/placeholder.mp3" // swim/hands.mp3"
-      }
+    // , { "src": "img/swim/hands.gif"
+    //   , "verbs": ["плыть"]
+    //   , "phrase": "XXX"
+    //   , "audio": "audio/placeholder.mp3" // swim/hands.mp3"
+    //   }
     , { "src": "img/swim/mermaid.gif"
       , "verbs": ["плыть"]
       , "phrase": "XXX"
