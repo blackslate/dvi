@@ -1,35 +1,26 @@
-Start with an empty set of images. 
+Start with an empty set of images.
 Choose a verb at random
 Remove all images that illustrate the verbs for the chosen image from the distractor set
 Check what verbs are missing from the distractor set
 Choose the first image from the missing verbs lists that does not use any of the verbs of the chosen image
 This will give 4 distractors
-
 Create a list of 5 distractors, none of which uses two verbs
 From this list, choose 3 that do not match the current image
 Ensure that the same verb does not appear in the next turn
 Switch out the image that was cued
 Cue any of the four current images
-
 abcd
 ebcd
 eacd
-
 Add a new (solo) distractor
 If a double distractor is added, then it must be chosen immediately
-
-Easier to change all 
+Easier to change all
 If any one is double, ensure that the extra verb is not chosen.
   This means ignoring any upcoming doubles
-
-
-
 Choose a verb
 Choose the next example of this verb
 Use the list of verbs for this example as the exclusion list
 - Skip any verbs in the exclusion list
 - Skip any images for other verbs that contain an item in the exclusion list
-
 Result: the distractor images may share verbs, but none will share verbs with the correct answer
-
 Even simpler: only the cued verb should be excluded from distractors

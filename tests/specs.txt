@@ -1,7 +1,6 @@
 ##You open the page and see:
-
 * Title
-* Instructions (IKEA-style) 
+* Instructions (IKEA-style)
 ---
 * A sentence with a gap
 * The verb to use in the gap
@@ -12,16 +11,12 @@
 * (Optional)
     - Contextual menu for verbs
     - Contextual menu for persons
-
-
-##Action 
+##Action
 * Type into the gap (text input)
 * Open conjugation table and drag word
- 
 ##Reactions
 * As word is typed, if input is impossible, latest letter is removed
 * When input contains correct string, video plays
-
 ##Background actions
 * Video is pre-loaded
 * Sentence is chosen at random from a list
