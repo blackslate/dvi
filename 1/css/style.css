@@ -53,14 +53,6 @@ img {
 }
 
 
-div.grayscale img,
-div.grayscale canvas{
-  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-  filter: grayscale(100%);
-  opacity: 0.5;
-}
-
-
 svg {
   position: absolute;
   display:  block;;
@@ -74,6 +66,21 @@ svg {
 svg:hover {
   opacity: 0;
 }
+
+
+div.grayscale img,
+div.grayscale canvas{
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+/** UNCOMMENT IF PLAYBACK OF ANIMATION IS NOT TO BE PERMITTED AFTER
+ *  THE USER CLICKS ON THE WRONG IMAGE
+**/
+/*div.grayscale svg {
+  display: none;
+}*/
 
 
 p.legend {

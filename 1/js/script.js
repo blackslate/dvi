@@ -169,6 +169,7 @@
     playLegend(event) {
       this.callback("play", this.options.audio)
     }
+    
 
     // PUBLIC METHODS // PUBLIC METHODS // PUBLIC METHODS //
 
@@ -198,9 +199,9 @@
 
 
     toggleAnimation(event) {
-      if (this.clicked) {
-        return
-      } else if (event.target.nodeName.toUpperCase() !== "SVG") {
+      // // IF PLAYBACK AFTER ERROR IS NOT TO BE PERMITTED, CHANGE THE
+      // // CSS RULE FOR div.grayscale svg { }
+      if (event.target.nodeName.toUpperCase() !== "SVG") {
         return
       }
     
@@ -212,6 +213,7 @@
         this._stopAnimation()
       }
     }
+
 
     // PRIVATE METHODS // PRIVATE METHODS // PRIVATE METHODS //
 

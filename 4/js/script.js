@@ -24,7 +24,7 @@
 
       let forPronoun = (phraseData) => {
         if (options.pronoun) {
-          console.log(phraseData.phrase)
+          // console.log(phraseData.phrase)
           return phraseData.pronouns.indexOf(options.pronoun) > -1
         } else {
           return true
@@ -324,7 +324,7 @@
       let input = document.querySelector("input[name='0']")
       input.focus()
 
-      console.log(this.answers)
+      // console.log(this.answers)
     }
 
 
@@ -346,7 +346,7 @@
     // VIDEO // VIDEO // VIDEO // VIDEO // VIDEO // VIDEO // VIDEO //
 
     setPlayer(YTPlayer) {
-      console.log("YouTube Player loaded")
+      // console.log("YouTube Player loaded")
       this.YTPlayer = YTPlayer
     }
 
@@ -361,7 +361,7 @@
       , 5: "video cued"
       }[event.data]
 
-      console.log("stateChange", this.state)
+      // console.log("stateChange", this.state)
     }
 
 
